@@ -1,0 +1,15 @@
+<command> ::= <add_book> | <remove_book> | <list_books> | <checkout_book> | <return_book>
+
+<add_book> ::= "add" " "+ "book" " "+ <book_title> " "+ <author> " "+ <category>
+<remove_book> ::= "remove" " "+ "book" " "+ <book_title>
+<list_books> ::= "list" " "+ "books"
+<checkout_book> ::= "checkout" " "+ <book_title> " "+ <username>
+<return_book> ::= "return" " "+ <book_title>
+
+<book_title> ::= <word>
+<author> ::= <word>
+<username> ::= <word>
+<category> ::= <word> | <word> "(" <category> ")"
+
+<word> ::= <letter>+
+<letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"

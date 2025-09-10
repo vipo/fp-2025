@@ -1,11 +1,7 @@
-# fp-2025
+This DSL manages a simple library system with books, users, and categories. Operations include adding/removing books, listing inventory, and checkout/return. Categories can be nested like Fiction(Fantasy(Epic)) for hierarchical organization.
 
-## Setup
-
-### To get started, you first need to open the project using Visual Studio Code and having Docker Desktop
-1. `Ctrl + Shift + P`
-2. `Dev Containers: Open Folder in Container`
-
-### To Build & Test the Project, run the following commands
-1. `stack build`
-2. `stack test`
+Examples:
+add book Algorithms Sedgewick Technical(Programming(DataStructures))
+remove book Hobbit
+checkout Dune Alice
+return Dune

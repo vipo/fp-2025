@@ -7,10 +7,23 @@ data Dumpable = Examples
 
 -- This is a "root" ADT representing your grammar,
 -- Please expand this ADT as needed
+data Category = SimpleCategory String 
+              | NestedCategory String Category
+  deriving Show
+
+-- Root ADT representing your BNF grammar
 data Command = Dump Dumpable 
+             | AddBook String String Category
+             | RemoveBook String
+             | ListBooks
+             | CheckoutBook String String
+             | ReturnBook String
   deriving Show
 
 examples :: [Command]
 examples = [
-    Dump Examples
+    AddBook "Algorithms" "Sedgewick" (NestedCategory "Technical" (NestedCategory "Programming" (SimpleCategory "DataStructures"))),
+    RemoveBook "Hobbit",
+    CheckoutBook "Dune" "Alice",
+    ReturnBook "Dune"
     ]
