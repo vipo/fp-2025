@@ -3,6 +3,10 @@
 module Lessons.Lesson01 (i, ii, c, s, b, f, add, il, cl) where
 
 
+-- >>> i + i == 84
+-- True
+--- >>> 5
+--- 5
 i :: Integer
 i = 42
 
