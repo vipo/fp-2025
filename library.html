@@ -1,5 +1,6 @@
-<command> ::= <add_book> | <remove_book> | <list_books> | <checkout_book> | <return_book>
+<command> ::= <dump_examples> | <add_book> | <remove_book> | <list_books> | <checkout_book> | <return_book>
 
+<dump_examples> ::= "dump" " "+ "examples"
 <add_book> ::= "add" " "+ "book" " "+ <book_title> " "+ <author> " "+ <category>
 <remove_book> ::= "remove" " "+ "book" " "+ <book_title>
 <list_books> ::= "list" " "+ "books"
@@ -9,7 +10,9 @@
 <book_title> ::= <word>
 <author> ::= <word>
 <username> ::= <word>
-<category> ::= <word> | <word> "(" <category> ")"
+<category> ::= <nested_category> | <simple_category>
+<simple_category> ::= <word>
+<nested_category> ::= <word> " "+ "(" " "+ <category> " "+ ")"
 
 <word> ::= <letter>+
 <letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"

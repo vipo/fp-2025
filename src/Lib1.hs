@@ -1,18 +1,34 @@
 module Lib1
-    ( examples, Command(..)
+    ( examples, Command(..), Category(..), Dumpable(..)
     ) where
+--import Lessons.Lesson01 (s)
+
+
+
+-- instance Show Dumpable where
+--   show Examples = "examples"
+
+-- instance Show Command where
+--   show (Dump d) = "dump " ++ show d
+--   show (AddBook title author cat) = "add book " ++ show title ++ " " ++ show author ++ " " ++ show cat
+--   show (RemoveBook title) = "remove book " ++ show title  
+--   show ListBooks = "list books"
+--   show (CheckoutBook title user) = "checkout book " ++ show title ++ " " ++ show user
+--   show (ReturnBook title) = "return book " ++ show title
+
+-- instance Show Category where
+--   show (SimpleCategory s) = show s
+--   show (NestedCategory s n) = show s ++ "(" ++ show n ++ ")"
 
 data Dumpable = Examples
   deriving Show
 
--- This is a "root" ADT representing your grammar,
--- Please expand this ADT as needed
 data Category = SimpleCategory String 
               | NestedCategory String Category
   deriving Show
 
--- Root ADT representing your BNF grammar
-data Command = Dump Dumpable 
+
+data Command = Dump Dumpable
              | AddBook String String Category
              | RemoveBook String
              | ListBooks
@@ -22,8 +38,11 @@ data Command = Dump Dumpable
 
 examples :: [Command]
 examples = [
+    Dump Examples,
     AddBook "Algorithms" "Sedgewick" (NestedCategory "Technical" (NestedCategory "Programming" (SimpleCategory "DataStructures"))),
+    AddBook "Dune" "Herbert" (SimpleCategory "Fiction"),
     RemoveBook "Hobbit",
     CheckoutBook "Dune" "Alice",
     ReturnBook "Dune"
     ]
+    
