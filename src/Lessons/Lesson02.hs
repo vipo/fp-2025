@@ -22,7 +22,7 @@ module Lessons.Lesson02 (f,f',length', length'', t1, t2, trd, FireExtinguisher(.
 -- >>> f [1,2,3]
 -- 1
 f :: [Integer] -> Integer
-f [] = 0
+f [] = 0 
 f (h:_) = h
 
 -- | This pattern matching is dangerous, if only one-element list is
