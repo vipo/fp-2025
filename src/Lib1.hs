@@ -21,11 +21,11 @@ module Lib1
 --   show (NestedCategory s n) = show s ++ "(" ++ show n ++ ")"
 
 data Dumpable = Examples
-  deriving Show
+  deriving (Show, Eq)
 
 data Category = SimpleCategory String 
               | NestedCategory String Category
-  deriving Show
+  deriving (Show, Eq)
 
 
 data Command = Dump Dumpable
