@@ -1,206 +1,270 @@
-{-# OPTIONS_GHC -Wno-missing-export-lists #-}
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Redundant lambda" #-}
 {-# LANGUAGE InstanceSigs #-}
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+{-# OPTIONS_GHC -Wno-missing-export-lists #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 {-# OPTIONS_GHC -Wno-overlapping-patterns #-}
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# OPTIONS_GHC -Wno-unused-matches #-}
 
-module Lib2 (
-    parseCommand,
-    ToCliCommand(..),
-    process
-) where
+{-# HLINT ignore "Redundant lambda" #-}
 
-import qualified Lib1
+module Lib2
+  ( parseCommand,
+    ToCliCommand (..),
+    process,
+  )
+where
+
 import Data.Char (isAlpha, isDigit, isSpace)
+import Data.List (isPrefixOf)
+import qualified Lib1
 
 type ErrorMsg = String
+
 type Parser a = String -> Either ErrorMsg (a, String)
 
--- | Parser combinators and helpers
+-- Basic parser combinators
 
--- | Consumes a character if it satisfies the predicate.
 satisfy :: (Char -> Bool) -> Parser Char
 satisfy p [] = Left "Empty input"
-satisfy p (h:t)
-  | p h       = Right (h, t)
+satisfy p (h : t)
+  | p h = Right (h, t)
   | otherwise = Left ("Unexpected char: " ++ [h])
 
--- | Parses a single letter.
 parseLetter :: Parser Char
 parseLetter = satisfy isAlpha
 
--- | Parses a single digit.
 parseDigit :: Parser Char
 parseDigit = satisfy isDigit
 
--- | Parses zero or more occurrences.
 many :: Parser a -> Parser [a]
-many p = many' p []
+many p = go []
   where
-    many' p' acc = \input ->
-      case p' input of
-        Left _ -> Right (acc, input)
-        Right (v, r) -> many' p' (acc ++ [v]) r
+    go acc input = case p input of
+      Left _ -> Right (acc, input)
+      Right (v, r) -> go (acc ++ [v]) r
 
--- | Parses one or more occurrences.
 many1 :: Parser a -> Parser [a]
-many1 p = \input ->
-  case many p input of
-    Left e -> Left e
-    Right ([], _) -> Left "At least one value required"
-    Right a -> Right a
+many1 p = \input -> case many p input of
+  Left e -> Left e
+  Right ([], _) -> Left "At least one value required"
+  Right a -> Right a
 
--- | Maps a function over a parser's result.
 pmap :: (a -> b) -> Parser a -> Parser b
-pmap f p = \input ->
-  case p input of
-    Left e -> Left e
-    Right (v, r) -> Right (f v, r)
+pmap f p = \input -> case p input of
+  Left e -> Left e
+  Right (v, r) -> Right (f v, r)
 
--- | Parses an integer.
 parseInteger :: Parser Integer
 parseInteger = pmap read $ many1 parseDigit
 
--- | Parses a string of letters.
-parseString :: Parser String
-parseString = many1 parseLetter
+parseWord :: Parser String
+parseWord = many1 parseLetter
 
--- | Skips leading spaces.
-skipSpaces :: Parser ()
-skipSpaces [] = Right ((), [])
-skipSpaces input@(h:t)
-    | isSpace h = skipSpaces t
-    | otherwise = Right ((), input)
+parseSpaces :: Parser ()
+parseSpaces [] = Right ((), [])
+parseSpaces input@(h : t)
+  | isSpace h = parseSpaces t
+  | otherwise = Right ((), input)
 
--- | Parser combinators
+parseSpaces1 :: Parser ()
+parseSpaces1 [] = Left "Expected at least one space"
+parseSpaces1 (h : t)
+  | isSpace h = parseSpaces t
+  | otherwise = Left "Expected at least one space"
+
+parseOpenParen  :: Parser String
+parseOpenParen  = keyword "("
+
+parseCloseParen :: Parser String
+parseCloseParen = keyword ")"
+
 
 and2 :: Parser a -> Parser b -> Parser (a, b)
-and2 p1 p2 = \input ->
-  case p1 input of
-    Left err -> Left $ "and2 failed on first parser: " ++ err
-    Right (result1, rest1) ->
-      case p2 rest1 of
-        Left err -> Left $ "and2 failed on second parser: " ++ err
-        Right (result2, rest2) -> Right ((result1, result2), rest2)
+and2 p1 p2 = \input -> case p1 input of
+  Left err -> Left err
+  Right (r1, rest1) -> case p2 rest1 of
+    Left err -> Left err
+    Right (r2, rest2) -> Right ((r1, r2), rest2)
 
-and3 :: Parser a -> Parser b -> Parser c -> Parser (a, b, c)
-and3 p1 p2 p3 = \input ->
-  case and2 p1 p2 input of
-    Left err -> Left $ "and3 failed on first two parsers: " ++ err
-    Right ((r1, r2), rest1) ->
-      case p3 rest1 of
-        Left err -> Left $ "and3 failed on third parser: " ++ err
-        Right (r3, rest2) -> Right ((r1, r2, r3), rest2)
+and3 :: Parser a -> Parser b -> Parser c -> Parser ((a, b), c)
+and3 p1 p2 p3 = \input -> case and2 p1 p2 input of
+  Left err -> Left err
+  Right ((r1, r2), rest) -> case p3 rest of
+    Left err -> Left err
+    Right (r3, rest2) -> Right (((r1, r2), r3), rest2)
 
-and4 :: Parser a -> Parser b -> Parser c -> Parser d -> Parser (a, b, c, d)
-and4 p1 p2 p3 p4 = \input ->
-  case and3 p1 p2 p3 input of
-    Left err -> Left $ "and4 failed on first three parsers: " ++ err
-    Right ((r1, r2, r3), rest1) ->
-      case p4 rest1 of
-        Left err -> Left $ "and4 failed on fourth parser: " ++ err
-        Right (r4, rest2) -> Right ((r1, r2, r3, r4), rest2)
+and4 :: Parser a -> Parser b -> Parser c -> Parser d -> Parser (((a, b), c), d)
+and4 p1 p2 p3 p4 = \input -> case and3 p1 p2 p3 input of
+  Left err -> Left err
+  Right ((r1r2, r3), rest) -> case p4 rest of
+    Left err -> Left err
+    Right (r4, rest2) -> Right (((r1r2, r3), r4), rest2)
+
+and7 :: Parser a -> Parser b -> Parser c -> Parser d -> Parser e -> Parser f -> Parser g -> Parser ((((((a, b), c), d), e), f), g)
+and7 p1 p2 p3 p4 p5 p6 p7 input =
+  case and4 p1 p2 p3 p4 input of
+    Left e -> Left e
+    Right ((((r1, r2), r3), r4), rest1) ->
+      case and3 p5 p6 p7 rest1 of
+        Left e -> Left e
+        Right (((r5, r6), r7), rest2) ->
+          Right (((((((r1, r2), r3), r4), r5), r6), r7), rest2)
+
+
+and9 :: Parser a -> Parser b -> Parser c -> Parser d -> Parser e -> Parser f -> Parser g -> Parser h -> Parser i -> Parser ((((((((a, b), c), d), e), f), g), h), i)
+and9 p1 p2 p3 p4 p5 p6 p7 p8 p9 = \input ->
+  case and4 p1 p2 p3 p4 input of
+    Left err -> Left err
+    Right ((((r1, r2), r3), r4), rest1) ->
+      case and4 p5 p6 p7 p8 rest1 of
+        Left err -> Left err
+        Right ((((r5, r6), r7), r8), rest2) ->
+          case p9 rest2 of
+            Left err -> Left err
+            Right (r9, rest3) -> Right (((((((((r1, r2), r3), r4), r5), r6), r7), r8), r9), rest3)
 
 orElse :: Parser a -> Parser a -> Parser a
-orElse p1 p2 = \input ->
-  case p1 input of
-    Right result -> Right result
-    Left _ -> p2 input
+orElse p1 p2 = \input -> case p1 input of
+  Right result -> Right result
+  Left _ -> p2 input
 
--- | Tokenization
+-- Command parsers
 
--- | Parses a single token: either a parenthesis or a word.
-parseToken :: Parser String
-parseToken = orElse parseParentheses (many1 (satisfy (\c -> not (isSpace c) && c /= '(' && c /= ')')))
-
--- | Parses a parenthesis as a token.
-parseParentheses :: Parser String
-parseParentheses = pmap (:[]) (satisfy (\c -> c == '(' || c == ')'))
-
--- | Parses a token, skipping leading spaces.
-parseTokenWithSpace :: Parser String
-parseTokenWithSpace = pmap snd (and2 skipSpaces parseToken)
-
--- | Parses all tokens from input.
-parseTokens :: Parser [String]
-parseTokens = many parseTokenWithSpace
-
--- | Parses a category, supporting nested categories.
-parseCategory :: [String] -> Either String (Lib1.Category, [String])
-parseCategory tokens =
-  case tokens of
-    [] -> Left "Expected category, got nothing"
-    ("(":rest) ->
-      case parseCategory rest of
-        Left err -> Left $ "Error parsing inner category: " ++ err
-        Right (innerCat, (")":rest')) ->
-          Right (innerCat, rest')
-        Right (_, other) ->
-          Left $ "Expected closing ), got: " ++ show other
-    (name:"(":rest) ->
-      case parseCategory rest of
-        Left err -> Left $ "Error parsing nested category: " ++ err
-        Right (innerCat, (")":rest')) ->
-          Right (Lib1.NestedCategory name innerCat, rest')
-        Right (_, other) ->
-          Left $ "Expected closing ), got: " ++ show other
-    (name:rest) ->
-      Right (Lib1.SimpleCategory name, rest)
-
--- | Parses a command from input string.
 parseCommand :: Parser Lib1.Command
-parseCommand input =
-  case parseTokens input of
-    Left err -> Left $ "Tokenization failed: " ++ err
-    Right (tokens, rest) -> parseCommandTokens tokens rest
+parseCommand =
+  parseDump
+    `orElse` parseAddBook
+    `orElse` parseRemoveBook
+    `orElse` parseListBooks
+    `orElse` parseCheckoutBook
+    `orElse` parseReturnBook
 
--- | Matches tokens to Command constructors.
-parseCommandTokens :: [String] -> String -> Either String (Lib1.Command, String)
-parseCommandTokens tokens rest =
-  case tokens of
-    ["list", "books"] -> Right (Lib1.ListBooks, "")
-    ("remove":"book":title:_) -> Right (Lib1.RemoveBook title, "")
-    ("checkout":title:username:_) -> Right (Lib1.CheckoutBook title username, "")
-    ["dump", "examples"] -> Right (Lib1.Dump Lib1.Examples, "")
-    ("return":title:_) -> Right (Lib1.ReturnBook title, "")
-    ("add":"book":title:author:categoryTokens) ->
-      case parseCategory categoryTokens of
-        Left err -> Left $ "Failed to parse category: " ++ err
-        Right (cat, []) -> Right (Lib1.AddBook title author cat, "")
-        Right (cat, leftover) -> Left $ "Unexpected tokens after category: " ++ show leftover
-    [] -> Left "Empty command"
-    _ -> Left $ "Unknown command: " ++ show tokens
+keyword :: String -> Parser String
+keyword kw input
+  | kw `isPrefixOf` input = Right (kw, drop (length kw) input)
+  | otherwise = Left ("Expected keyword: " ++ kw)
 
--- | Converts a Command to its CLI string representation.
+parseDumpable :: Parser Lib1.Dumpable
+parseDumpable = pmap (const Lib1.Examples) $ keyword "examples"
+
+parseDump :: Parser Lib1.Command
+parseDump =
+  pmap (\((_, _), d) -> Lib1.Dump d) $
+    and3 (keyword "dump") parseSpaces1 parseDumpable
+
+parseAddBook :: Parser Lib1.Command
+parseAddBook =
+  pmap makeAddBook $
+    and9
+      (keyword "add")
+      parseSpaces1
+      (keyword "book")
+      parseSpaces1
+      parseBookTitle
+      parseSpaces1
+      parseAuthor
+      parseSpaces1
+      parseCategory
+  where
+    makeAddBook ((((((((_, _), _), _), title), _), author), _), cat) =
+      Lib1.AddBook title author cat
+
+parseRemoveBook :: Parser Lib1.Command
+parseRemoveBook =
+  pmap makeRemoveBook $
+    and4
+      (keyword "remove")
+      parseSpaces1
+      (keyword "book")
+      (and2 parseSpaces1 parseBookTitle)
+  where
+    makeRemoveBook (((_, _), _), (_, title)) = Lib1.RemoveBook title
+
+parseListBooks :: Parser Lib1.Command
+parseListBooks =
+  pmap (\((_, _), _) -> Lib1.ListBooks) $
+    and3
+      (keyword "list")
+      parseSpaces1
+      (keyword "books")
+
+parseCheckoutBook :: Parser Lib1.Command
+parseCheckoutBook =
+  pmap makeCheckout $
+    and4
+      (keyword "checkout")
+      parseSpaces1
+      parseBookTitle
+      (and2 parseSpaces1 parseUsername)
+  where
+    makeCheckout (((_, _), book), (_, user)) = Lib1.CheckoutBook book user
+
+parseReturnBook :: Parser Lib1.Command
+parseReturnBook =
+  pmap makeReturn $
+    and3
+      (keyword "return")
+      parseSpaces1
+      parseBookTitle
+  where
+    makeReturn ((_, _), book) = Lib1.ReturnBook book
+
+parseCategory :: Parser Lib1.Category
+parseCategory = parseNestedCategory `orElse` parseSimpleCategory
+
+parseSimpleCategory :: Parser Lib1.Category
+parseSimpleCategory = pmap Lib1.SimpleCategory parseWord
+
+parseNestedCategory :: Parser Lib1.Category
+parseNestedCategory =
+  pmap buildNested $
+    and7
+      parseWord
+      parseSpaces1
+      parseOpenParen
+      parseSpaces1
+      parseCategory
+      parseSpaces1
+      parseCloseParen
+  where
+    buildNested ((((((name, _), _), _), cat), _), _) =
+      Lib1.NestedCategory name cat
+
+
+parseBookTitle :: Parser String
+parseBookTitle = parseWord
+
+parseAuthor :: Parser String
+parseAuthor = parseWord
+
+parseUsername :: Parser String
+parseUsername = parseWord
+
+-- CLI string conversion
+
 class ToCliCommand a where
   toCliCommand :: a -> String
 
 instance ToCliCommand Lib1.Command where
-  toCliCommand :: Lib1.Command -> String
   toCliCommand (Lib1.Dump Lib1.Examples) = "dump examples"
   toCliCommand (Lib1.AddBook title author cat) =
     "add book " ++ title ++ " " ++ author ++ " " ++ toCliCategory cat
     where
       toCliCategory (Lib1.SimpleCategory name) = name
       toCliCategory (Lib1.NestedCategory name inner) =
-        name ++ "(" ++ toCliCategory inner ++ ")"
+        name ++ " ( " ++ toCliCategory inner ++ " )"
   toCliCommand (Lib1.RemoveBook title) = "remove book " ++ title
   toCliCommand Lib1.ListBooks = "list books"
   toCliCommand (Lib1.CheckoutBook book user) = "checkout " ++ book ++ " " ++ user
   toCliCommand (Lib1.ReturnBook book) = "return " ++ book
-  toCliCommand _ = "Not implemented"  -- Catch-all at the END
+  toCliCommand _ = "Not implemented"
 
--- | Processes a command for display/output.
 process :: Lib1.Command -> [String]
 process (Lib1.Dump Lib1.Examples) = "Examples:" : map toCliCommand Lib1.examples
 process c = ["Parsed as " ++ show c]
 
--- | Manual Eq instance for Command
 instance Eq Lib1.Command where
-  (==) :: Lib1.Command -> Lib1.Command -> Bool
   (Lib1.Dump d1) == (Lib1.Dump d2) = d1 == d2
   (Lib1.AddBook t1 a1 c1) == (Lib1.AddBook t2 a2 c2) =
     t1 == t2 && a1 == a2 && c1 == c2
