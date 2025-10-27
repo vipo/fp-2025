@@ -30,8 +30,10 @@ library
       Lessons.Lesson04
       Lessons.Lesson05
       Lessons.Lesson06
+      Lessons.Lesson07
       Lib1
       Lib2
+      Lib3
   hs-source-dirs:
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
@@ -55,6 +57,23 @@ executable fp2025-one
       base >=4.7 && <5
     , fp2025
     , repline
+  default-language: Haskell2010
+
+executable fp2025-three
+  main-is: Main.hs
+  other-modules:
+      Paths_fp2025
+  autogen-modules:
+      Paths_fp2025
+  hs-source-dirs:
+      app3
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -rtsopts
+  build-depends:
+      async
+    , base >=4.7 && <5
+    , fp2025
+    , repline
+    , stm
   default-language: Haskell2010
 
 executable fp2025-two

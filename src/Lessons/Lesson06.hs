@@ -1,7 +1,6 @@
 module Lessons.Lesson06 where
 
-import Control.Concurrent (newChan, threadDelay, forkIO,
-    readChan, writeChan, Chan, modifyMVar)
+import Control.Concurrent (newChan, threadDelay, forkIO,readChan, writeChan, Chan)
 import System.Random
 import Control.Concurrent.STM
     ( TVar, writeTVar, newTVarIO, modifyTVar )
@@ -9,7 +8,6 @@ import Control.Monad.STM
 import Control.Concurrent.STM.TVar (readTVar, readTVarIO)
 import Control.Concurrent.Async
 import Control.Monad (when)
-import Paths_fp2025 (getLibDir)
 
 -- | Up until now, all functions we wrote were pure expressions. 
 --   Pure functions always return the same result for the same input and have no side effects. 

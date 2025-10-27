@@ -9,6 +9,9 @@ import Control.Concurrent (Chan)
 
 -- | The 'add' function takes two integers and returns their sum.
 -- It is a simple example of a named function definition.
+import Control.Monad
+
+
 add :: Int -> Int -> Int
 add a b = a + b
 
