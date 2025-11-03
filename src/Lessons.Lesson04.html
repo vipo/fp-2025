@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -Wno-missing-export-lists #-}</span><span>
+</span><span id="line-2"></span><span class="hs-pragma">{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}</span><span>
+</span><span id="line-3"></span><span class="hs-pragma">{-# HLINT ignore &quot;Redundant lambda&quot; #-}</span><span>
+</span><span id="line-4"></span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Lessons.Lesson04</span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-5"></span><span>
+</span><span id="line-6"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Char</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">isAlpha</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">isDigit</span></span><span class="hs-special">)</span><span>
+</span><span id="line-7"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.List</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">isPrefixOf</span></span><span class="hs-special">)</span><span>
+</span><span id="line-8"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Control.Concurrent</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Chan</span></span><span class="hs-special">)</span><span>
+</span><span id="line-9"></span><span>
+</span><span id="line-10"></span><span>
+</span><span id="line-11"></span><span class="hs-comment">-- | The 'add' function takes two integers and returns their sum.</span><span>
+</span><span id="line-12"></span><span class="hs-comment">-- It is a simple example of a named function definition.</span><span>
+</span><span id="line-13"></span><span class="annot"><a href="Lessons.Lesson04.html#add"><span class="hs-identifier hs-type">add</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-14"></span><span id="add"><span class="annot"><span class="annottext">add :: Int -&gt; Int -&gt; Int
+</span><a href="Lessons.Lesson04.html#add"><span class="hs-identifier hs-var hs-var">add</span></a></span></span><span> </span><span id="local-6989586621679023722"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679023722"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span id="local-6989586621679023723"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679023723"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679023722"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">+</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679023723"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- | Anonymous functions (and one of their implementations - lambda functions) are functions without a name.</span><span>
+</span><span id="line-17"></span><span class="hs-comment">-- In Haskell, they are written using a backslash `\`, followed by their parameters.</span><span>
+</span><span id="line-18"></span><span class="hs-comment">--</span><span>
+</span><span id="line-19"></span><span class="hs-comment">-- The function below demonstrates how 'foldl' can be used with both named and anonymous functions.</span><span>
+</span><span id="line-20"></span><span class="hs-comment">-- 'foldl' stands for fold left, meaning it combines all elements of a list using a binary function.</span><span>
+</span><span id="line-21"></span><span class="hs-comment">--</span><span>
+</span><span id="line-22"></span><span class="hs-comment">-- &gt;&gt;&gt; foldl add 0 [1,2,3,4,5]</span><span>
+</span><span id="line-23"></span><span class="hs-comment">-- 15</span><span>
+</span><span id="line-24"></span><span class="hs-comment">--</span><span>
+</span><span id="line-25"></span><span class="hs-comment">-- &gt;&gt;&gt; foldl add 0 []</span><span>
+</span><span id="line-26"></span><span class="hs-comment">-- 0</span><span>
+</span><span id="line-27"></span><span class="hs-comment">--</span><span>
+</span><span id="line-28"></span><span class="hs-comment">-- &gt;&gt;&gt; foldl add (-1) []</span><span>
+</span><span id="line-29"></span><span class="hs-comment">-- -1</span><span>
+</span><span id="line-30"></span><span class="hs-comment">--</span><span>
+</span><span id="line-31"></span><span class="hs-comment">-- &gt;&gt;&gt; foldl (\a b -&gt; a * b) 1 [1,2,3,4]</span><span>
+</span><span id="line-32"></span><span class="hs-comment">-- 24</span><span>
+</span><span id="line-33"></span><span class="annot"><a href="Lessons.Lesson04.html#sumOfInts"><span class="hs-identifier hs-type">sumOfInts</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-34"></span><span id="sumOfInts"><span class="annot"><span class="annottext">sumOfInts :: [Int] -&gt; Int
+</span><a href="Lessons.Lesson04.html#sumOfInts"><span class="hs-identifier hs-var hs-var">sumOfInts</span></a></span></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">0</span></span><span>
+</span><span id="line-35"></span><span class="annot"><a href="Lessons.Lesson04.html#sumOfInts"><span class="hs-identifier hs-var">sumOfInts</span></a></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679023727"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679023727"><span class="hs-identifier hs-var">h</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679023728"><span class="annot"><span class="annottext">[Int]
+</span><a href="#local-6989586621679023728"><span class="hs-identifier hs-var">t</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679023727"><span class="hs-identifier hs-var">h</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">+</span></span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; Int
+</span><a href="Lessons.Lesson04.html#sumOfInts"><span class="hs-identifier hs-var">sumOfInts</span></a></span><span> </span><span class="annot"><span class="annottext">[Int]
+</span><a href="#local-6989586621679023728"><span class="hs-identifier hs-var">t</span></a></span><span>
+</span><span id="line-36"></span><span>
+</span><span id="line-37"></span><span class="hs-comment">-- | In this example, 't' represents the tail of a list &#8212; that is, all elements except the first.</span><span>
+</span><span id="line-38"></span><span class="hs-comment">-- This function shows how to apply a given function 'f' to every element in the list.</span><span>
+</span><span id="line-39"></span><span class="hs-comment">-- </span><span>
+</span><span id="line-40"></span><span class="hs-comment">-- It is essentially a reimplementation of Haskell&#8217;s built-in 'map' function.</span><span>
+</span><span id="line-41"></span><span>
+</span><span id="line-42"></span><span class="hs-comment">-- &gt;&gt;&gt; map length [&quot;labas&quot;, &quot;medi&quot;]</span><span>
+</span><span id="line-43"></span><span class="hs-comment">-- [5,4]</span><span>
+</span><span id="line-44"></span><span id="local-6989586621679023681"><span id="local-6989586621679023682"><span class="annot"><a href="Lessons.Lesson04.html#mapping"><span class="hs-identifier hs-type">mapping</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="#local-6989586621679023681"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="#local-6989586621679023682"><span class="hs-identifier hs-type">b</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679023681"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679023682"><span class="hs-identifier hs-type">b</span></a></span><span class="hs-special">]</span></span></span><span>
+</span><span id="line-45"></span><span id="mapping"><span class="annot"><span class="annottext">mapping :: forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><a href="Lessons.Lesson04.html#mapping"><span class="hs-identifier hs-var hs-var">mapping</span></a></span></span><span> </span><span class="annot"><span class="annottext">a -&gt; b
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-46"></span><span class="annot"><a href="Lessons.Lesson04.html#mapping"><span class="hs-identifier hs-var">mapping</span></a></span><span> </span><span id="local-6989586621679023730"><span class="annot"><span class="annottext">a -&gt; b
+</span><a href="#local-6989586621679023730"><span class="hs-identifier hs-var">f</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679023731"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679023731"><span class="hs-identifier hs-var">h</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679023732"><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679023732"><span class="hs-identifier hs-var">t</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">a -&gt; b
+</span><a href="#local-6989586621679023730"><span class="hs-identifier hs-var">f</span></a></span><span> </span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679023731"><span class="hs-identifier hs-var">h</span></a></span><span> </span><span class="annot"><span class="annottext">b -&gt; [b] -&gt; [b]
+forall a. a -&gt; [a] -&gt; [a]
+</span><span class="hs-glyph hs-var">:</span></span><span> </span><span class="annot"><span class="annottext">(a -&gt; b) -&gt; [a] -&gt; [b]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><a href="Lessons.Lesson04.html#mapping"><span class="hs-identifier hs-var">mapping</span></a></span><span> </span><span class="annot"><span class="annottext">a -&gt; b
+</span><a href="#local-6989586621679023730"><span class="hs-identifier hs-var">f</span></a></span><span> </span><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679023732"><span class="hs-identifier hs-var">t</span></a></span><span>
+</span><span id="line-47"></span><span>
+</span><span id="line-48"></span><span class="hs-comment">-- | The 'Either' type is used to represent computations that can return one of two possible results &#8212; typically an error (Left) or a success (Right).</span><span>
+</span><span id="line-49"></span><span class="hs-comment">--</span><span>
+</span><span id="line-50"></span><span class="hs-comment">-- This function safely performs integer division. If the divisor is zero, it returns an error message wrapped in 'Left'. Otherwise, it returns the result in 'Right'.</span><span>
+</span><span id="line-51"></span><span class="hs-comment">--</span><span>
+</span><span id="line-52"></span><span class="hs-comment">-- &gt;&gt;&gt; safeDivision 1 0</span><span>
+</span><span id="line-53"></span><span class="hs-comment">-- Left &quot;Division by zero&quot;</span><span>
+</span><span id="line-54"></span><span class="hs-comment">--</span><span>
+</span><span id="line-55"></span><span class="hs-comment">-- &gt;&gt;&gt; safeDivision 1 10</span><span>
+</span><span id="line-56"></span><span class="hs-comment">-- Right 0</span><span>
+</span><span id="line-57"></span><span class="annot"><a href="Lessons.Lesson04.html#safeDivision"><span class="hs-identifier hs-type">safeDivision</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
+</span><span id="line-58"></span><span id="safeDivision"><span class="annot"><span class="annottext">safeDivision :: Integer -&gt; Integer -&gt; Either String Integer
+</span><a href="Lessons.Lesson04.html#safeDivision"><span class="hs-identifier hs-var hs-var">safeDivision</span></a></span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-identifier">_</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">0</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String -&gt; Either String Integer
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;Division by zero&quot;</span></span><span>
+</span><span id="line-59"></span><span class="annot"><a href="Lessons.Lesson04.html#safeDivision"><span class="hs-identifier hs-var">safeDivision</span></a></span><span> </span><span id="local-6989586621679023734"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679023734"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span id="local-6989586621679023735"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679023735"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Either String Integer
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679023734"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Integer -&gt; Integer
+forall a. Integral a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">`div`</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679023735"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-60"></span><span>
+</span><span id="line-61"></span><span class="hs-comment">-- | The type 'Parser a' represents a function that takes a string and tries to extract a value of type 'a' from its beginning.</span><span>
+</span><span id="line-62"></span><span class="hs-comment">-- It returns either:</span><span>
+</span><span id="line-63"></span><span class="hs-comment">--   'Left' with an error message, or</span><span>
+</span><span id="line-64"></span><span class="hs-comment">--   'Right' with a tuple ('a', 'String') &#8212; the parsed value and the remaining input.</span><span>
+</span><span id="line-65"></span><span class="hs-keyword">type</span><span> </span><span id="ErrorMsg"><span class="annot"><a href="Lessons.Lesson04.html#ErrorMsg"><span class="hs-identifier hs-var">ErrorMsg</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
+</span><span id="line-66"></span><span class="hs-keyword">type</span><span> </span><span id="Parser"><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-var">Parser</span></a></span></span><span> </span><span id="local-6989586621679023738"><span class="annot"><a href="#local-6989586621679023738"><span class="hs-identifier hs-type">a</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#ErrorMsg"><span class="hs-identifier hs-type">ErrorMsg</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="#local-6989586621679023738"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span class="hs-special">)</span><span>
+</span><span id="line-67"></span><span>
+</span><span id="line-68"></span><span class="hs-comment">-- | This parser tries to read a single alphabetic letter from the beginning of a string.</span><span>
+</span><span id="line-69"></span><span class="hs-comment">--</span><span>
+</span><span id="line-70"></span><span class="hs-comment">-- If the input is empty, it fails with an error message.</span><span>
+</span><span id="line-71"></span><span class="hs-comment">-- If the first character is a letter, it returns it along with the rest of the string.</span><span>
+</span><span id="line-72"></span><span class="hs-comment">-- Otherwise, it returns an error describing what went wrong.</span><span>
+</span><span id="line-73"></span><span class="hs-comment">--</span><span>
+</span><span id="line-74"></span><span class="hs-comment">-- The operator '$' allows us to avoid parentheses for function application.</span><span>
+</span><span id="line-75"></span><span class="hs-comment">--</span><span>
+</span><span id="line-76"></span><span class="hs-comment">-- &gt;&gt;&gt; parseLetter &quot;fksdjhfdjk&quot;</span><span>
+</span><span id="line-77"></span><span class="hs-comment">-- Right ('f',&quot;ksdjhfdjk&quot;)</span><span>
+</span><span id="line-78"></span><span class="hs-comment">--</span><span>
+</span><span id="line-79"></span><span class="hs-comment">-- &gt;&gt;&gt; parseLetter &quot;&quot;</span><span>
+</span><span id="line-80"></span><span class="hs-comment">-- Left &quot;A letter is expected but got empty input&quot;</span><span>
+</span><span id="line-81"></span><span class="hs-comment">--</span><span>
+</span><span id="line-82"></span><span class="hs-comment">-- &gt;&gt;&gt; parseLetter &quot;3213fksdjhfdjk&quot;</span><span>
+</span><span id="line-83"></span><span class="hs-comment">-- Left &quot;A letter is expected, but got 3&quot;</span><span>
+</span><span id="line-84"></span><span class="annot"><a href="Lessons.Lesson04.html#parseLetter"><span class="hs-identifier hs-type">parseLetter</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span>
+</span><span id="line-85"></span><span id="parseLetter"><span class="annot"><span class="annottext">parseLetter :: Parser Char
+</span><a href="Lessons.Lesson04.html#parseLetter"><span class="hs-identifier hs-var hs-var">parseLetter</span></a></span></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Char
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;A letter is expected but got empty input&quot;</span></span><span>
+</span><span id="line-86"></span><span class="annot"><a href="Lessons.Lesson04.html#parseLetter"><span class="hs-identifier hs-var">parseLetter</span></a></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679023740"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023740"><span class="hs-identifier hs-var">h</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679023741"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023741"><span class="hs-identifier hs-var">t</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-87"></span><span>  </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="annottext">Char -&gt; Bool
+</span><span class="hs-identifier hs-var">isAlpha</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023740"><span class="hs-identifier hs-var">h</span></a></span><span>
+</span><span id="line-88"></span><span>    </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="annottext">(Char, String) -&gt; Either String (Char, String)
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023740"><span class="hs-identifier hs-var">h</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023741"><span class="hs-identifier hs-var">t</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-89"></span><span>    </span><span class="hs-keyword">else</span><span> </span><span class="annot"><span class="annottext">Parser Char
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">Parser Char -&gt; Parser Char
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;A letter is expected, but got &quot;</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; String -&gt; String
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023740"><span class="hs-identifier hs-var">h</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-90"></span><span>
+</span><span id="line-91"></span><span class="hs-comment">-- | This parser works similarly to 'parseLetter', but it checks for digits.</span><span>
+</span><span id="line-92"></span><span class="hs-comment">--</span><span>
+</span><span id="line-93"></span><span class="hs-comment">-- &gt;&gt;&gt; parseDigit &quot;ghfjkd&quot;</span><span>
+</span><span id="line-94"></span><span class="hs-comment">-- Left &quot;A digit is expected, but got g&quot;</span><span>
+</span><span id="line-95"></span><span class="hs-comment">--</span><span>
+</span><span id="line-96"></span><span class="hs-comment">-- &gt;&gt;&gt; parseDigit &quot;55ghfjkd&quot;</span><span>
+</span><span id="line-97"></span><span class="hs-comment">-- Right ('5',&quot;5ghfjkd&quot;)</span><span>
+</span><span id="line-98"></span><span class="annot"><a href="Lessons.Lesson04.html#parseDigit"><span class="hs-identifier hs-type">parseDigit</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span>
+</span><span id="line-99"></span><span id="parseDigit"><span class="annot"><span class="annottext">parseDigit :: Parser Char
+</span><a href="Lessons.Lesson04.html#parseDigit"><span class="hs-identifier hs-var hs-var">parseDigit</span></a></span></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Char
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;A digit is expected but got empty input&quot;</span></span><span>
+</span><span id="line-100"></span><span class="annot"><a href="Lessons.Lesson04.html#parseDigit"><span class="hs-identifier hs-var">parseDigit</span></a></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679023743"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023743"><span class="hs-identifier hs-var">h</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679023744"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023744"><span class="hs-identifier hs-var">t</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-101"></span><span>  </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="annottext">Char -&gt; Bool
+</span><span class="hs-identifier hs-var">isDigit</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023743"><span class="hs-identifier hs-var">h</span></a></span><span>
+</span><span id="line-102"></span><span>    </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="annottext">(Char, String) -&gt; Either String (Char, String)
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023743"><span class="hs-identifier hs-var">h</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023744"><span class="hs-identifier hs-var">t</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-103"></span><span>    </span><span class="hs-keyword">else</span><span> </span><span class="annot"><span class="annottext">Parser Char
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">Parser Char -&gt; Parser Char
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;A digit is expected, but got &quot;</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; String -&gt; String
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679023743"><span class="hs-identifier hs-var">h</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-104"></span><span>
+</span><span id="line-105"></span><span class="hs-comment">-- | The 'many' parser runs another parser repeatedly on the input.</span><span>
+</span><span id="line-106"></span><span class="hs-comment">-- It succeeds even if the inner parser matches zero times.</span><span>
+</span><span id="line-107"></span><span class="hs-comment">-- </span><span>
+</span><span id="line-108"></span><span class="hs-comment">-- The helper function 'many'' carries an accumulator 'acc' that collects results.</span><span>
+</span><span id="line-109"></span><span class="hs-comment">-- </span><span>
+</span><span id="line-110"></span><span class="hs-comment">-- 'v' represents the value returned by the inner parser and 'r' represents the remaining input string after parsing.</span><span>
+</span><span id="line-111"></span><span id="local-6989586621679023694"><span class="annot"><a href="Lessons.Lesson04.html#many"><span class="hs-identifier hs-type">many</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679023694"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679023694"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span></span><span>
+</span><span id="line-112"></span><span id="many"><span class="annot"><span class="annottext">many :: forall a. Parser a -&gt; Parser [a]
+</span><a href="Lessons.Lesson04.html#many"><span class="hs-identifier hs-var hs-var">many</span></a></span></span><span> </span><span id="local-6989586621679023746"><span class="annot"><span class="annottext">Parser a
+</span><a href="#local-6989586621679023746"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser a -&gt; [a] -&gt; String -&gt; Either String ([a], String)
+forall {t} {a} {a} {a}.
+(t -&gt; Either a (a, t)) -&gt; [a] -&gt; t -&gt; Either a ([a], t)
+</span><a href="#local-6989586621679023747"><span class="hs-identifier hs-var">many'</span></a></span><span> </span><span class="annot"><span class="annottext">Parser a
+</span><a href="#local-6989586621679023746"><span class="hs-identifier hs-var">p</span></a></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-113"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-114"></span><span>    </span><span id="local-6989586621679023747"><span class="annot"><span class="annottext">many' :: (t -&gt; Either a (a, t)) -&gt; [a] -&gt; t -&gt; Either a ([a], t)
+</span><a href="#local-6989586621679023747"><span class="hs-identifier hs-var hs-var">many'</span></a></span></span><span> </span><span id="local-6989586621679023748"><span class="annot"><span class="annottext">t -&gt; Either a (a, t)
+</span><a href="#local-6989586621679023748"><span class="hs-identifier hs-var">p'</span></a></span></span><span> </span><span id="local-6989586621679023749"><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679023749"><span class="hs-identifier hs-var">acc</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-glyph">\</span><span id="local-6989586621679023750"><span class="annot"><span class="annottext">t
+</span><a href="#local-6989586621679023750"><span class="hs-identifier hs-var">input</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span id="line-115"></span><span>      </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">t -&gt; Either a (a, t)
+</span><a href="#local-6989586621679023748"><span class="hs-identifier hs-var">p'</span></a></span><span> </span><span class="annot"><span class="annottext">t
+</span><a href="#local-6989586621679023750"><span class="hs-identifier hs-var">input</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-116"></span><span>        </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span class="annot"><span class="annottext">a
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">([a], t) -&gt; Either a ([a], t)
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679023749"><span class="hs-identifier hs-var">acc</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">t
+</span><a href="#local-6989586621679023750"><span class="hs-identifier hs-var">input</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-117"></span><span>        </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679023751"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679023751"><span class="hs-identifier hs-var">v</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679023752"><span class="annot"><span class="annottext">t
+</span><a href="#local-6989586621679023752"><span class="hs-identifier hs-var">r</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">(t -&gt; Either a (a, t)) -&gt; [a] -&gt; t -&gt; Either a ([a], t)
+</span><a href="#local-6989586621679023747"><span class="hs-identifier hs-var">many'</span></a></span><span> </span><span class="annot"><span class="annottext">t -&gt; Either a (a, t)
+</span><a href="#local-6989586621679023748"><span class="hs-identifier hs-var">p'</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679023749"><span class="hs-identifier hs-var">acc</span></a></span><span> </span><span class="annot"><span class="annottext">[a] -&gt; [a] -&gt; [a]
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679023751"><span class="hs-identifier hs-var">v</span></a></span><span class="hs-special">]</span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">t
+</span><a href="#local-6989586621679023752"><span class="hs-identifier hs-var">r</span></a></span><span>
+</span><span id="line-118"></span><span>
+</span><span id="line-119"></span><span class="hs-comment">-- | The 'many1' parser behaves like 'many', but it requires at least one successful parse.</span><span>
+</span><span id="line-120"></span><span class="hs-comment">-- If the input does not contain any valid elements, it fails.</span><span>
+</span><span id="line-121"></span><span class="hs-comment">--</span><span>
+</span><span id="line-122"></span><span class="hs-comment">-- &gt;&gt;&gt; parseString &quot;&quot;</span><span>
+</span><span id="line-123"></span><span class="hs-comment">-- Left &quot;At least on value required&quot;</span><span>
+</span><span id="line-124"></span><span class="hs-comment">-- &gt;&gt;&gt; parseString &quot;afds&quot;</span><span>
+</span><span id="line-125"></span><span class="hs-comment">-- Right (&quot;afds&quot;,&quot;&quot;)</span><span>
+</span><span id="line-126"></span><span class="hs-comment">-- &gt;&gt;&gt; parseString &quot;afds5345&quot;</span><span>
+</span><span id="line-127"></span><span class="hs-comment">-- Right (&quot;afds&quot;,&quot;5345&quot;)</span><span>
+</span><span id="line-128"></span><span id="local-6989586621679023754"><span class="annot"><a href="Lessons.Lesson04.html#many1"><span class="hs-identifier hs-type">many1</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679023754"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679023754"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span></span><span>
+</span><span id="line-129"></span><span id="many1"><span class="annot"><span class="annottext">many1 :: forall a. Parser a -&gt; Parser [a]
+</span><a href="Lessons.Lesson04.html#many1"><span class="hs-identifier hs-var hs-var">many1</span></a></span></span><span> </span><span id="local-6989586621679023755"><span class="annot"><span class="annottext">Parser a
+</span><a href="#local-6989586621679023755"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-glyph">\</span><span id="local-6989586621679023756"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023756"><span class="hs-identifier hs-var">input</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span id="line-130"></span><span>  </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Parser a -&gt; String -&gt; Either String ([a], String)
+forall a. Parser a -&gt; Parser [a]
+</span><a href="Lessons.Lesson04.html#many"><span class="hs-identifier hs-var">many</span></a></span><span> </span><span class="annot"><span class="annottext">Parser a
+</span><a href="#local-6989586621679023755"><span class="hs-identifier hs-var">p</span></a></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023756"><span class="hs-identifier hs-var">input</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-131"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span id="local-6989586621679023757"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023757"><span class="hs-identifier hs-var">e</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Either String ([a], String)
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023757"><span class="hs-identifier hs-var">e</span></a></span><span>
+</span><span id="line-132"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span class="hs-special">(</span><span class="hs-special">[</span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Either String ([a], String)
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;At least on value required&quot;</span></span><span>
+</span><span id="line-133"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span id="local-6989586621679023758"><span class="annot"><span class="annottext">([a], String)
+</span><a href="#local-6989586621679023758"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">([a], String) -&gt; Either String ([a], String)
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">([a], String)
+</span><a href="#local-6989586621679023758"><span class="hs-identifier hs-var">a</span></a></span><span>
+</span><span id="line-134"></span><span>
+</span><span id="line-135"></span><span class="hs-comment">-- | This parser combines everything we have built so far.</span><span>
+</span><span id="line-136"></span><span class="hs-comment">-- It parses one or more letters from the beginning of the input string.</span><span>
+</span><span id="line-137"></span><span class="hs-comment">-- It succeeds if at least one letter is found, and returns the collected string.</span><span>
+</span><span id="line-138"></span><span class="hs-comment">--</span><span>
+</span><span id="line-139"></span><span class="hs-comment">-- &gt;&gt;&gt; parseString &quot;afds&quot;</span><span>
+</span><span id="line-140"></span><span class="hs-comment">-- Right (&quot;afds&quot;,&quot;&quot;)</span><span>
+</span><span id="line-141"></span><span class="hs-comment">--</span><span>
+</span><span id="line-142"></span><span class="hs-comment">-- &gt;&gt;&gt; parseString &quot;afds5345&quot;</span><span>
+</span><span id="line-143"></span><span class="hs-comment">-- Right (&quot;afds&quot;,&quot;5345&quot;)</span><span>
+</span><span id="line-144"></span><span class="hs-comment">--</span><span>
+</span><span id="line-145"></span><span class="hs-comment">-- &gt;&gt;&gt; parseString &quot;afds 5345&quot;</span><span>
+</span><span id="line-146"></span><span class="hs-comment">-- Right (&quot;afds&quot;,&quot; 5345&quot;)</span><span>
+</span><span id="line-147"></span><span class="annot"><a href="Lessons.Lesson04.html#parseString"><span class="hs-identifier hs-type">parseString</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
+</span><span id="line-148"></span><span id="parseString"><span class="annot"><span class="annottext">parseString :: Parser String
+</span><a href="Lessons.Lesson04.html#parseString"><span class="hs-identifier hs-var hs-var">parseString</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Parser Char -&gt; Parser String
+forall a. Parser a -&gt; Parser [a]
+</span><a href="Lessons.Lesson04.html#many1"><span class="hs-identifier hs-var">many1</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Char
+</span><a href="Lessons.Lesson04.html#parseLetter"><span class="hs-identifier hs-var">parseLetter</span></a></span><span>
+</span><span id="line-149"></span><span>
+</span><span id="line-150"></span><span class="hs-comment">-- | The 'pmap' function allows us to transform the result produced by a parser without changing how that parser actually reads the input string.</span><span>
+</span><span id="line-151"></span><span class="hs-comment">--</span><span>
+</span><span id="line-152"></span><span class="hs-comment">-- A parser of type 'Parser a' returns either:</span><span>
+</span><span id="line-153"></span><span class="hs-comment">--   'Left' with an error message if parsing fails, or</span><span>
+</span><span id="line-154"></span><span class="hs-comment">--   'Right (v, r)' where 'v' is the parsed value and 'r' is the remaining input.</span><span>
+</span><span id="line-155"></span><span class="hs-comment">--</span><span>
+</span><span id="line-156"></span><span class="hs-comment">-- 'pmap' takes a transformation function @f :: a -&gt; b@ and a parser @p :: Parser a@,</span><span>
+</span><span id="line-157"></span><span class="hs-comment">-- and produces a new parser @Parser b@ that behaves just like @p@ but applies @f@</span><span>
+</span><span id="line-158"></span><span class="hs-comment">-- to the successfully parsed value before returning it.</span><span>
+</span><span id="line-159"></span><span class="hs-comment">--</span><span>
+</span><span id="line-160"></span><span class="hs-comment">-- The overall structure of the result ('Left' or 'Right', plus the remaining input)</span><span>
+</span><span id="line-161"></span><span class="hs-comment">-- stays exactly the same &#8212; only the parsed value itself is modified.</span><span>
+</span><span id="line-162"></span><span class="hs-comment">--</span><span>
+</span><span id="line-163"></span><span class="hs-comment">-- For example, if @many1 parseDigit@ returns @Right (&quot;123&quot;, &quot;&quot;)@,</span><span>
+</span><span id="line-164"></span><span class="hs-comment">-- then @pmap read (many1 parseDigit)@ will return @Right (123, &quot;&quot;)@.</span><span>
+</span><span id="line-165"></span><span class="hs-comment">--</span><span>
+</span><span id="line-166"></span><span class="hs-comment">-- This pattern is the same idea as 'map' for Lists: map over the value</span><span>
+</span><span id="line-167"></span><span class="hs-comment">-- inside a container (in this case, the parsing context).</span><span>
+</span><span id="line-168"></span><span id="local-6989586621679023701"><span id="local-6989586621679023702"><span class="annot"><a href="Lessons.Lesson04.html#pmap"><span class="hs-identifier hs-type">pmap</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="#local-6989586621679023701"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="#local-6989586621679023702"><span class="hs-identifier hs-type">b</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679023701"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679023702"><span class="hs-identifier hs-type">b</span></a></span></span></span><span>
+</span><span id="line-169"></span><span id="pmap"><span class="annot"><span class="annottext">pmap :: forall a b. (a -&gt; b) -&gt; Parser a -&gt; Parser b
+</span><a href="Lessons.Lesson04.html#pmap"><span class="hs-identifier hs-var hs-var">pmap</span></a></span></span><span> </span><span id="local-6989586621679023761"><span class="annot"><span class="annottext">a -&gt; b
+</span><a href="#local-6989586621679023761"><span class="hs-identifier hs-var">f</span></a></span></span><span> </span><span id="local-6989586621679023762"><span class="annot"><span class="annottext">Parser a
+</span><a href="#local-6989586621679023762"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-glyph">\</span><span id="local-6989586621679023763"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023763"><span class="hs-identifier hs-var">input</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span id="line-170"></span><span>  </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Parser a
+</span><a href="#local-6989586621679023762"><span class="hs-identifier hs-var">p</span></a></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023763"><span class="hs-identifier hs-var">input</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-171"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span id="local-6989586621679023764"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023764"><span class="hs-identifier hs-var">e</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Either String (b, String)
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023764"><span class="hs-identifier hs-var">e</span></a></span><span>
+</span><span id="line-172"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679023765"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679023765"><span class="hs-identifier hs-var">v</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679023766"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023766"><span class="hs-identifier hs-var">r</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">(b, String) -&gt; Either String (b, String)
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a -&gt; b
+</span><a href="#local-6989586621679023761"><span class="hs-identifier hs-var">f</span></a></span><span> </span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679023765"><span class="hs-identifier hs-var">v</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679023766"><span class="hs-identifier hs-var">r</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-173"></span><span>
+</span><span id="line-174"></span><span>
+</span><span id="line-175"></span><span class="hs-comment">-- | This parser reads one or more digits from the input string and converts them into an 'Integer'.</span><span>
+</span><span id="line-176"></span><span class="hs-comment">-- It demonstrates how to combine parsing ('many1 parseDigit') with transformation ('pmap read').</span><span>
+</span><span id="line-177"></span><span class="hs-comment">--</span><span>
+</span><span id="line-178"></span><span class="hs-comment">-- &gt;&gt;&gt; parseInteger &quot;3423432gfhg&quot;</span><span>
+</span><span id="line-179"></span><span class="hs-comment">-- Right (3423432,&quot;gfhg&quot;)</span><span>
+</span><span id="line-180"></span><span class="annot"><a href="Lessons.Lesson04.html#parseInteger"><span class="hs-identifier hs-type">parseInteger</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson04.html#Parser"><span class="hs-identifier hs-type">Parser</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
+</span><span id="line-181"></span><span id="parseInteger"><span class="annot"><span class="annottext">parseInteger :: Parser Integer
+</span><a href="Lessons.Lesson04.html#parseInteger"><span class="hs-identifier hs-var hs-var">parseInteger</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(String -&gt; Integer) -&gt; Parser String -&gt; Parser Integer
+forall a b. (a -&gt; b) -&gt; Parser a -&gt; Parser b
+</span><a href="Lessons.Lesson04.html#pmap"><span class="hs-identifier hs-var">pmap</span></a></span><span> </span><span class="annot"><span class="annottext">String -&gt; Integer
+forall a. Read a =&gt; String -&gt; a
+</span><span class="hs-identifier hs-var">read</span></span><span> </span><span class="annot"><span class="annottext">(Parser String -&gt; Parser Integer)
+-&gt; Parser String -&gt; Parser Integer
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Parser Char -&gt; Parser String
+forall a. Parser a -&gt; Parser [a]
+</span><a href="Lessons.Lesson04.html#many1"><span class="hs-identifier hs-var">many1</span></a></span><span> </span><span class="annot"><span class="annottext">Parser Char
+</span><a href="Lessons.Lesson04.html#parseDigit"><span class="hs-identifier hs-var">parseDigit</span></a></span><span>
+</span><span id="line-182"></span></pre></body></html>

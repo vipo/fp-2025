@@ -35,7 +35,10 @@ ghc-options:
 
 library:
   source-dirs: src
-  dependencies: []
+  dependencies:
+    - random
+    - stm
+    - async
   when:
   - condition: false
     other-modules: Paths_fp2025
@@ -57,6 +60,16 @@ executables:
     dependencies:
     - fp2025
     - repline
+  fp2025-three:
+    main:                Main.hs
+    source-dirs:         app3
+    ghc-options:
+    - -rtsopts
+    dependencies:
+    - fp2025
+    - repline
+    - stm
+    - async
 
 tests:
   fp2024-test:
