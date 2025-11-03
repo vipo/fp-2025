@@ -1,0 +1,119 @@
+{-# LANGUAGE InstanceSigs #-}
+{-# OPTIONS_GHC -Wno-orphans #-}
+module Lib2(
+    parseCommand
+    , ToCliCommand(..)
+    , process) where
+
+import qualified Lib1
+
+type ErrorMsg = String
+--ok
+type Parser a = String -> Either ErrorMsg (a, String)
+--we get a parser and the rest of the Command
+
+
+
+-->>> parseLetter "inputukas"
+
+parseLetter :: Parser char
+parseletter [] ž Left "A letter is expected but got empty input"
+parseLetter (h:t) =
+if isAlpha h
+then Right (h, t)
+else Left $ "a letter is expected but got " ++ [h]
+
+
+parsedigit :: Parser char
+parsedigit [] = LEFT "A digit was expected blahblahblah"
+parsedigit (h:t) =if isDigit have
+then Right (h, t)
+else LEFT ("a digit was expected" ++ [h])
+
+
+many :: Parser a -> Parser [a]
+many _ = error "not implemented"
+
+
+many :: Parser a -> Parser [a]
+many p = many' p []
+where 
+many' p' acc = \input ->
+case p' input of 
+Left e -> Right (acc, input)
+Right (v, r) -> many' p' (acc ++ [v]) r 
+--reikia 3 argumentu nes parseris, tai reikia kad veiktu either or sth
+--p yra parseris:)
+
+manyl :: Parser a -> Parser [a]
+manyl p = \input -> --Either ErrorMsg (a, String)
+case many p input of 
+LEFT e -> Left e
+RIght ([], _) => Left "At least one value required"
+Right a -> Right a
+
+
+skaitom()
+{
+  cin<<char;
+}
+skaitomdaug()
+{
+  while (kol norim)
+  {
+    skaitom()
+  }
+}
+
+
+
+parseString :: Parser String
+parseString = many parseLetter4
+
+parseInteger :: Parser Integer
+parseInteger = --manyl parseDigit
+pmap read --paverciam i inta
+ $ manyl parseinteger
+
+--paskaitos pavyzdukas
+
+
+
+--<add_book> ::= "add" " "+ "book" " "+ <book_title> " "+ <author> " "+ <category>
+add_book =  do x <- "add"
+            string " "
+            string "book"
+            string " "
+            string book_title
+            string " "
+            string author
+            string " "
+            string category
+
+
+word = do x <- char a
+
+-- | Parses user's input.
+-- The function must be implemented and must have tests.
+parseCommand :: Parser Lib1.Command
+parseCommand _ = Left "Not implemented"
+
+process :: Lib1.Command -> [String]
+process (Lib1.Dump Lib1.Examples) = "Examples:" : map toCliCommand Lib1.examples
+process c = ["Parsed as " ++ show c]
+
+class ToCliCommand a where
+  toCliCommand :: a -> String
+
+-- | You have to make your Command an instance of ToCliCommand class.
+-- Please remove all custom Show instances of Command ADT and
+-- use "deriving Show" only.
+instance ToCliCommand Lib1.Command where
+  toCliCommand :: Lib1.Command -> String
+  toCliCommand _ = "Not implemented"
+
+-- | You have to make your Command an instance of Eq class.
+-- Usage of "deriving Eq" is forbidden.
+instance Eq Lib1.Command where
+  (==) :: Lib1.Command -> Lib1.Command -> Bool
+  _ == _ = False
