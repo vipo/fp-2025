@@ -1,4 +1,6 @@
--- | Module is a unit of compilation. A module can export values, functions,..
+-- | Notes taken by Ugnė Pacevičiūtė 
+--
+-- Module is a unit of compilation. A module can export values, functions,..
 -- so they become accessible from other modules.
 --
 -- Core thing to remember: all values (not variables) are immutable!

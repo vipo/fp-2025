@@ -2,7 +2,7 @@
 
 ## Lesson notes
 
-Can be viewed [here](https://htmlpreview.github.io/?https://github.com/vipo/fp-2025/blob/main/index.html)
+Can be viewed [here](https://vipo.github.io/fp-2025/)
 
 ## Setup
 

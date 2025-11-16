@@ -1,6 +1,7 @@
 {-# OPTIONS_GHC -Wno-missing-export-lists #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 {-# HLINT ignore "Redundant lambda" #-}
+-- | Notes taken by Ugnė Pacevičiūtė 
 module Lessons.Lesson04 where
 
 import Data.Char (isAlpha, isDigit)

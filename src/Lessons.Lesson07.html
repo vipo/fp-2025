@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="annot"><span class="hs-comment">-- | Notes taken by Emilija Rim&#353;elyt&#279;</span></span><span>
+</span><span id="line-2"></span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Lessons.Lesson07</span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-3"></span><span>
+</span><span id="line-4"></span><span class="hs-comment">-- | List comprehension: pairing numbers with letters.</span><span>
+</span><span id="line-5"></span><span class="hs-comment">-- For each 'a' and 'b', we build a tuple.</span><span>
+</span><span id="line-6"></span><span class="hs-comment">-- A cartesian product, clean and subtle.</span><span>
+</span><span id="line-7"></span><span class="hs-comment">--</span><span>
+</span><span id="line-8"></span><span class="hs-comment">-- &gt;&gt;&gt; lc </span><span>
+</span><span id="line-9"></span><span class="hs-comment">-- [(1,'a'),(1,'b'),(2,'a'),(2,'b'),(3,'a'),(3,'b'),(4,'a'),(4,'b')]</span><span>
+</span><span id="line-10"></span><span class="annot"><a href="Lessons.Lesson07.html#lc"><span class="hs-identifier hs-type">lc</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span class="hs-special">)</span><span class="hs-special">]</span><span>
+</span><span id="line-11"></span><span id="lc"><span class="annot"><span class="annottext">lc :: [(Integer, Char)]
+</span><a href="Lessons.Lesson07.html#lc"><span class="hs-identifier hs-var hs-var">lc</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050356"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050357"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">|</span><span> </span><span id="local-6989586621679050356"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050356"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">4</span></span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050357"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050357"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'b'</span></span><span class="hs-special">]</span><span class="hs-special">]</span><span>
+</span><span id="line-12"></span><span>
+</span><span id="line-13"></span><span class="hs-comment">-- | Squares of 'a', repeated for each 'b'.</span><span>
+</span><span id="line-14"></span><span class="hs-comment">-- 'b' isn&#8217;t used, but it multiplies the count.</span><span>
+</span><span id="line-15"></span><span class="hs-comment">-- More combinations &#8212; that&#8217;s the amount.</span><span>
+</span><span id="line-16"></span><span class="hs-comment">--</span><span>
+</span><span id="line-17"></span><span class="hs-comment">-- &gt;&gt;&gt; lc'</span><span>
+</span><span id="line-18"></span><span class="hs-comment">-- [1,1,4,4,9,9]</span><span>
+</span><span id="line-19"></span><span class="annot"><a href="Lessons.Lesson07.html#lc%27"><span class="hs-identifier hs-type">lc'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">]</span><span>
+</span><span id="line-20"></span><span id="lc%27"><span class="annot"><span class="annottext">lc' :: [Integer]
+</span><a href="Lessons.Lesson07.html#lc%27"><span class="hs-identifier hs-var hs-var">lc'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050359"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Integer -&gt; Integer
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">*</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050359"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="local-6989586621679050359"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050359"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050361"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050361"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">]</span><span class="hs-special">]</span><span>
+</span><span id="line-21"></span><span>
+</span><span id="line-22"></span><span class="hs-comment">-- | 'b' repeats for each 'c', though 'c' is unused.</span><span>
+</span><span id="line-23"></span><span class="hs-comment">-- 'a' is fixed, but nesting boosts the size.</span><span>
+</span><span id="line-24"></span><span class="hs-comment">--</span><span>
+</span><span id="line-25"></span><span class="hs-comment">-- &gt;&gt;&gt; lc''</span><span>
+</span><span id="line-26"></span><span class="hs-comment">-- [1,1,2,2,3,3,4,4]</span><span>
+</span><span id="line-27"></span><span class="annot"><a href="Lessons.Lesson07.html#lc%27%27"><span class="hs-identifier hs-type">lc''</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">]</span><span>
+</span><span id="line-28"></span><span id="lc%27%27"><span class="annot"><span class="annottext">lc'' :: [Integer]
+</span><a href="Lessons.Lesson07.html#lc%27%27"><span class="hs-identifier hs-var hs-var">lc''</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050363"><span class="hs-identifier hs-var">b</span></a></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="local-6989586621679050364"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050364"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050363"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050363"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">4</span></span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050365"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050365"><span class="hs-identifier hs-var">c</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'z'</span></span><span class="hs-special">]</span><span class="hs-special">]</span><span>
+</span><span id="line-29"></span><span>
+</span><span id="line-30"></span><span class="hs-comment">-- | Empty list in 'b' means no results.</span><span>
+</span><span id="line-31"></span><span class="hs-comment">-- Comprehension short-circuits &#8212; nothing to compute.</span><span>
+</span><span id="line-32"></span><span class="hs-comment">--</span><span>
+</span><span id="line-33"></span><span class="hs-comment">-- &gt;&gt;&gt; lc'''</span><span>
+</span><span id="line-34"></span><span class="hs-comment">-- []</span><span>
+</span><span id="line-35"></span><span class="annot"><a href="Lessons.Lesson07.html#lc%27%27%27"><span class="hs-identifier hs-type">lc'''</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">]</span><span>
+</span><span id="line-36"></span><span id="lc%27%27%27"><span class="annot"><span class="annottext">lc''' :: [Integer]
+</span><a href="Lessons.Lesson07.html#lc%27%27%27"><span class="hs-identifier hs-var hs-var">lc'''</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050367"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="local-6989586621679050367"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050367"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050368"><span class="annot"><span class="annottext">Any
+</span><a href="#local-6989586621679050368"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span class="hs-special">]</span><span>
+</span><span id="line-37"></span><span>
+</span><span id="line-38"></span><span class="hs-comment">-- | Same idea, but now 'a' is empty.</span><span>
+</span><span id="line-39"></span><span class="hs-comment">-- No values to pair, so the list stays bare.</span><span>
+</span><span id="line-40"></span><span class="hs-comment">--</span><span>
+</span><span id="line-41"></span><span class="hs-comment">-- &gt;&gt;&gt; lc''''</span><span>
+</span><span id="line-42"></span><span class="hs-comment">-- []</span><span>
+</span><span id="line-43"></span><span class="annot"><a href="Lessons.Lesson07.html#lc%27%27%27%27"><span class="hs-identifier hs-type">lc''''</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">]</span><span>
+</span><span id="line-44"></span><span id="lc%27%27%27%27"><span class="annot"><span class="annottext">lc'''' :: [Integer]
+</span><a href="Lessons.Lesson07.html#lc%27%27%27%27"><span class="hs-identifier hs-var hs-var">lc''''</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050370"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="local-6989586621679050370"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050370"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050371"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050371"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">]</span><span class="hs-special">]</span><span>
+</span><span id="line-45"></span><span>
+</span><span id="line-46"></span><span class="hs-comment">-- | Do-notation version of 'lc'.</span><span>
+</span><span id="line-47"></span><span class="hs-comment">-- Same result, just written differently.</span><span>
+</span><span id="line-48"></span><span class="hs-comment">-- Shows how monads can express list logic.</span><span>
+</span><span id="line-49"></span><span class="hs-comment">--</span><span>
+</span><span id="line-50"></span><span class="hs-comment">-- &gt;&gt;&gt; lm</span><span>
+</span><span id="line-51"></span><span class="hs-comment">-- [(1,'a'),(1,'b'),(2,'a'),(2,'b'),(3,'a'),(3,'b'),(4,'a'),(4,'b')]</span><span>
+</span><span id="line-52"></span><span class="annot"><a href="Lessons.Lesson07.html#lm"><span class="hs-identifier hs-type">lm</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span class="hs-special">)</span><span class="hs-special">]</span><span>
+</span><span id="line-53"></span><span id="lm"><span class="annot"><span class="annottext">lm :: [(Integer, Char)]
+</span><a href="Lessons.Lesson07.html#lm"><span class="hs-identifier hs-var hs-var">lm</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-54"></span><span>    </span><span id="local-6989586621679050373"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050373"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">4</span></span><span class="hs-special">]</span><span>
+</span><span id="line-55"></span><span>    </span><span id="local-6989586621679050374"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050374"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'b'</span></span><span class="hs-special">]</span><span>
+</span><span id="line-56"></span><span>    </span><span class="annot"><span class="annottext">(Integer, Char) -&gt; [(Integer, Char)]
+forall a. a -&gt; [a]
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050373"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050374"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-57"></span><span>
+</span><span id="line-58"></span><span class="hs-comment">-- | Swapping the order changes the output.</span><span>
+</span><span id="line-59"></span><span class="hs-comment">-- First 'b', then 'a' &#8212; so the nesting flips.</span><span>
+</span><span id="line-60"></span><span class="hs-comment">--</span><span>
+</span><span id="line-61"></span><span class="hs-comment">-- &gt;&gt;&gt; lm'</span><span>
+</span><span id="line-62"></span><span class="hs-comment">-- [(1,'a'),(2,'a'),(3,'a'),(4,'a'),(1,'b'),(2,'b'),(3,'b'),(4,'b')]</span><span>
+</span><span id="line-63"></span><span class="annot"><a href="Lessons.Lesson07.html#lm%27"><span class="hs-identifier hs-type">lm'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span class="hs-special">)</span><span class="hs-special">]</span><span>
+</span><span id="line-64"></span><span id="lm%27"><span class="annot"><span class="annottext">lm' :: [(Integer, Char)]
+</span><a href="Lessons.Lesson07.html#lm%27"><span class="hs-identifier hs-var hs-var">lm'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-65"></span><span>    </span><span id="local-6989586621679050376"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050376"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'b'</span></span><span class="hs-special">]</span><span>
+</span><span id="line-66"></span><span>    </span><span id="local-6989586621679050377"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050377"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">4</span></span><span class="hs-special">]</span><span>
+</span><span id="line-67"></span><span>    </span><span class="annot"><span class="annottext">(Integer, Char) -&gt; [(Integer, Char)]
+forall a. a -&gt; [a]
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050377"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050376"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-68"></span><span>
+</span><span id="line-69"></span><span class="hs-comment">-- | Maybe monad: chaining computations.</span><span>
+</span><span id="line-70"></span><span class="hs-comment">-- All values must be 'Just', or the chain breaks.</span><span>
+</span><span id="line-71"></span><span class="hs-comment">-- One 'Nothing', and the whole thing shakes.</span><span>
+</span><span id="line-72"></span><span class="hs-comment">--</span><span>
+</span><span id="line-73"></span><span class="hs-comment">-- &gt;&gt;&gt; mm</span><span>
+</span><span id="line-74"></span><span class="hs-comment">-- Just 84</span><span>
+</span><span id="line-75"></span><span class="annot"><a href="Lessons.Lesson07.html#mm"><span class="hs-identifier hs-type">mm</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
+</span><span id="line-76"></span><span id="mm"><span class="annot"><span class="annottext">mm :: Maybe Integer
+</span><a href="Lessons.Lesson07.html#mm"><span class="hs-identifier hs-var hs-var">mm</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-77"></span><span>    </span><span id="local-6989586621679050379"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050379"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">42</span></span><span>
+</span><span id="line-78"></span><span>    </span><span id="local-6989586621679050380"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050380"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span>
+</span><span id="line-79"></span><span>    </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">(Integer -&gt; Maybe Integer) -&gt; Integer -&gt; Maybe Integer
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050379"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Integer -&gt; Integer
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">*</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050380"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-80"></span><span>
+</span><span id="line-81"></span><span class="hs-comment">-- | One 'Nothing' in the chain &#8212; result is 'Nothing'.</span><span>
+</span><span id="line-82"></span><span class="hs-comment">-- That&#8217;s how Maybe guards against failure.</span><span>
+</span><span id="line-83"></span><span class="hs-comment">--</span><span>
+</span><span id="line-84"></span><span class="hs-comment">-- &gt;&gt;&gt; mm'</span><span>
+</span><span id="line-85"></span><span class="hs-comment">-- Nothing</span><span>
+</span><span id="line-86"></span><span class="annot"><a href="Lessons.Lesson07.html#mm%27"><span class="hs-identifier hs-type">mm'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
+</span><span id="line-87"></span><span id="mm%27"><span class="annot"><span class="annottext">mm' :: Maybe Integer
+</span><a href="Lessons.Lesson07.html#mm%27"><span class="hs-identifier hs-var hs-var">mm'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-88"></span><span>    </span><span id="local-6989586621679050382"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050382"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">42</span></span><span>
+</span><span id="line-89"></span><span>    </span><span id="local-6989586621679050383"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050383"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span>
+</span><span id="line-90"></span><span>    </span><span id="local-6989586621679050384"><span class="annot"><span class="annottext">Any
+</span><a href="#local-6989586621679050384"><span class="hs-identifier hs-var">c</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Maybe Any
+forall a. Maybe a
+</span><span class="hs-identifier hs-var">Nothing</span></span><span>
+</span><span id="line-91"></span><span>    </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">(Integer -&gt; Maybe Integer) -&gt; Integer -&gt; Maybe Integer
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050382"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Integer -&gt; Integer
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">*</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050383"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-92"></span><span>
+</span><span id="line-93"></span><span class="hs-comment">-- | Looks like it should work, but it doesn&#8217;t.</span><span>
+</span><span id="line-94"></span><span class="hs-comment">-- You need to bind the final value too.</span><span>
+</span><span id="line-95"></span><span class="hs-comment">-- Just expression alone won&#8217;t pull it through.</span><span>
+</span><span id="line-96"></span><span class="hs-comment">--</span><span>
+</span><span id="line-97"></span><span class="hs-comment">-- &gt;&gt;&gt; mm''</span><span>
+</span><span id="line-98"></span><span class="hs-comment">-- Nothing</span><span>
+</span><span id="line-99"></span><span class="annot"><a href="Lessons.Lesson07.html#mm%27%27"><span class="hs-identifier hs-type">mm''</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
+</span><span id="line-100"></span><span id="mm%27%27"><span class="annot"><span class="annottext">mm'' :: Maybe Integer
+</span><a href="Lessons.Lesson07.html#mm%27%27"><span class="hs-identifier hs-var hs-var">mm''</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-101"></span><span>    </span><span id="local-6989586621679050386"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050386"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">42</span></span><span>
+</span><span id="line-102"></span><span>    </span><span id="local-6989586621679050387"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050387"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span>
+</span><span id="line-103"></span><span>    </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(Integer -&gt; Maybe Integer) -&gt; Integer -&gt; Maybe Integer
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050386"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Integer -&gt; Integer
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">*</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050387"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-104"></span><span>
+</span><span id="line-105"></span><span class="hs-comment">-- | Either monad: 'Right' flows like Maybe&#8217;s 'Just'.</span><span>
+</span><span id="line-106"></span><span class="hs-comment">-- 'Left' short-circuits &#8212; it&#8217;s an error path.</span><span>
+</span><span id="line-107"></span><span class="hs-comment">--</span><span>
+</span><span id="line-108"></span><span class="hs-comment">-- &gt;&gt;&gt; em</span><span>
+</span><span id="line-109"></span><span class="hs-comment">-- Right 'a'</span><span>
+</span><span id="line-110"></span><span class="annot"><a href="Lessons.Lesson07.html#em"><span class="hs-identifier hs-type">em</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span>
+</span><span id="line-111"></span><span id="em"><span class="annot"><span class="annottext">em :: Either String Char
+</span><a href="Lessons.Lesson07.html#em"><span class="hs-identifier hs-var hs-var">em</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-112"></span><span>    </span><span id="local-6989586621679050389"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050389"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Either String Integer
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">43</span></span><span>
+</span><span id="line-113"></span><span>    </span><span id="local-6989586621679050390"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050390"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Char -&gt; Either String Char
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span>
+</span><span id="line-114"></span><span>    </span><span class="annot"><span class="annottext">Char -&gt; Either String Char
+forall a. a -&gt; Either String a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050390"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-115"></span><span>
+</span><span id="line-116"></span><span class="hs-comment">-- | 'Left' stops the computation early.</span><span>
+</span><span id="line-117"></span><span class="hs-comment">-- Doesn&#8217;t matter what comes after &#8212; it&#8217;s done.</span><span>
+</span><span id="line-118"></span><span class="hs-comment">--</span><span>
+</span><span id="line-119"></span><span class="hs-comment">-- &gt;&gt;&gt; em'</span><span>
+</span><span id="line-120"></span><span class="hs-comment">-- Left &quot;oh&quot;</span><span>
+</span><span id="line-121"></span><span class="annot"><a href="Lessons.Lesson07.html#em%27"><span class="hs-identifier hs-type">em'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span>
+</span><span id="line-122"></span><span id="em%27"><span class="annot"><span class="annottext">em' :: Either String Char
+</span><a href="Lessons.Lesson07.html#em%27"><span class="hs-identifier hs-var hs-var">em'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-123"></span><span>    </span><span id="local-6989586621679050392"><span class="annot"><span class="annottext">Any
+</span><a href="#local-6989586621679050392"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">String -&gt; Either String Any
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;oh&quot;</span></span><span>
+</span><span id="line-124"></span><span>    </span><span id="local-6989586621679050393"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050393"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Char -&gt; Either String Char
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span>
+</span><span id="line-125"></span><span>    </span><span class="annot"><span class="annottext">Char -&gt; Either String Char
+forall a. a -&gt; Either String a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050393"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-126"></span><span>
+</span><span id="line-127"></span><span class="hs-comment">-- | You can return tuples too &#8212; Either handles it.</span><span>
+</span><span id="line-128"></span><span class="hs-comment">-- As long as all are 'Right', it&#8217;s alright.</span><span>
+</span><span id="line-129"></span><span class="hs-comment">--</span><span>
+</span><span id="line-130"></span><span class="hs-comment">-- &gt;&gt;&gt; em''</span><span>
+</span><span id="line-131"></span><span class="hs-comment">-- Right (43,'a')</span><span>
+</span><span id="line-132"></span><span class="annot"><a href="Lessons.Lesson07.html#em%27%27"><span class="hs-identifier hs-type">em''</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span class="hs-special">)</span><span>
+</span><span id="line-133"></span><span id="em%27%27"><span class="annot"><span class="annottext">em'' :: Either String (Integer, Char)
+</span><a href="Lessons.Lesson07.html#em%27%27"><span class="hs-identifier hs-var hs-var">em''</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-134"></span><span>    </span><span id="local-6989586621679050395"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050395"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Either String Integer
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">43</span></span><span>
+</span><span id="line-135"></span><span>    </span><span id="local-6989586621679050396"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050396"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Char -&gt; Either String Char
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span>
+</span><span id="line-136"></span><span>    </span><span class="annot"><span class="annottext">(Integer, Char) -&gt; Either String (Integer, Char)
+forall a. a -&gt; Either String a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050395"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050396"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-137"></span><span>
+</span><span id="line-138"></span><span class="hs-comment">-- | Mixing 'Left' and 'Right' &#8212; 'Left' wins.</span><span>
+</span><span id="line-139"></span><span class="hs-comment">-- Error takes over, no multiplication begins.</span><span>
+</span><span id="line-140"></span><span class="hs-comment">--</span><span>
+</span><span id="line-141"></span><span class="hs-comment">-- &gt;&gt;&gt; em'''</span><span>
+</span><span id="line-142"></span><span class="hs-comment">-- Left 42</span><span>
+</span><span id="line-143"></span><span class="annot"><a href="Lessons.Lesson07.html#em%27%27%27"><span class="hs-identifier hs-type">em'''</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
+</span><span id="line-144"></span><span id="em%27%27%27"><span class="annot"><span class="annottext">em''' :: Either Integer Integer
+</span><a href="Lessons.Lesson07.html#em%27%27%27"><span class="hs-identifier hs-var hs-var">em'''</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-145"></span><span>    </span><span id="local-6989586621679050398"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050398"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Either Integer Integer
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">43</span></span><span>
+</span><span id="line-146"></span><span>    </span><span id="local-6989586621679050399"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050399"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Either Integer Integer
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">42</span></span><span>
+</span><span id="line-147"></span><span>    </span><span class="annot"><span class="annottext">Integer -&gt; Either Integer Integer
+forall a. a -&gt; Either Integer a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">(Integer -&gt; Either Integer Integer)
+-&gt; Integer -&gt; Either Integer Integer
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050398"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Integer -&gt; Integer
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">*</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050399"><span class="hs-identifier hs-var">b</span></a></span><span>
+</span><span id="line-148"></span><span>
+</span><span id="line-149"></span><span class="hs-comment">-- lm = do</span><span>
+</span><span id="line-150"></span><span class="hs-comment">--     a &lt;- [1,2,3,4]</span><span>
+</span><span id="line-151"></span><span class="hs-comment">--     b &lt;- ['a', 'b']</span><span>
+</span><span id="line-152"></span><span class="hs-comment">--     return (a, b)</span><span>
+</span><span id="line-153"></span><span>
+</span><span id="line-154"></span><span class="hs-comment">-- mm = do</span><span>
+</span><span id="line-155"></span><span class="hs-comment">--     a &lt;- Just 42</span><span>
+</span><span id="line-156"></span><span class="hs-comment">--     b &lt;- Just 2</span><span>
+</span><span id="line-157"></span><span class="hs-comment">--     return $ a * b</span><span>
+</span><span id="line-158"></span><span>
+</span><span id="line-159"></span><span class="hs-comment">-- | Same as 'lm', but using '&gt;&gt;=' explicitly.</span><span>
+</span><span id="line-160"></span><span class="hs-comment">-- Do-notation is just syntactic sugar.</span><span>
+</span><span id="line-161"></span><span class="hs-comment">-- Shows the plumbing under the rug.</span><span>
+</span><span id="line-162"></span><span class="annot"><a href="Lessons.Lesson07.html#lmb"><span class="hs-identifier hs-type">lmb</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span class="hs-special">)</span><span class="hs-special">]</span><span>
+</span><span id="line-163"></span><span id="lmb"><span class="annot"><span class="annottext">lmb :: [(Integer, Char)]
+</span><a href="Lessons.Lesson07.html#lmb"><span class="hs-identifier hs-var hs-var">lmb</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">3</span></span><span class="hs-special">,</span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">4</span></span><span class="hs-special">]</span><span> </span><span class="annot"><span class="annottext">[Integer] -&gt; (Integer -&gt; [(Integer, Char)]) -&gt; [(Integer, Char)]
+forall a b. [a] -&gt; (a -&gt; [b]) -&gt; [b]
+forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679050401"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050401"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'b'</span></span><span class="hs-special">]</span><span> </span><span class="annot"><span class="annottext">String -&gt; (Char -&gt; [(Integer, Char)]) -&gt; [(Integer, Char)]
+forall a b. [a] -&gt; (a -&gt; [b]) -&gt; [b]
+forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679050402"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050402"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">(Integer, Char) -&gt; [(Integer, Char)]
+forall a. a -&gt; [a]
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050401"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050402"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><span id="line-164"></span><span>
+</span><span id="line-165"></span><span class="hs-comment">-- | Same as 'mm', but written with '&gt;&gt;='.</span><span>
+</span><span id="line-166"></span><span class="hs-comment">-- Shows how monads chain computations.</span><span>
+</span><span id="line-167"></span><span class="hs-comment">--</span><span>
+</span><span id="line-168"></span><span class="hs-comment">-- &gt;&gt;&gt; mmb</span><span>
+</span><span id="line-169"></span><span class="hs-comment">-- Just 84</span><span>
+</span><span id="line-170"></span><span class="annot"><a href="Lessons.Lesson07.html#mmb"><span class="hs-identifier hs-type">mmb</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
+</span><span id="line-171"></span><span id="mmb"><span class="annot"><span class="annottext">mmb :: Maybe Integer
+</span><a href="Lessons.Lesson07.html#mmb"><span class="hs-identifier hs-var hs-var">mmb</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">42</span></span><span> </span><span class="annot"><span class="annottext">Maybe Integer -&gt; (Integer -&gt; Maybe Integer) -&gt; Maybe Integer
+forall a b. Maybe a -&gt; (a -&gt; Maybe b) -&gt; Maybe b
+forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679050404"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050404"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">2</span></span><span> </span><span class="annot"><span class="annottext">Maybe Integer -&gt; (Integer -&gt; Maybe Integer) -&gt; Maybe Integer
+forall a b. Maybe a -&gt; (a -&gt; Maybe b) -&gt; Maybe b
+forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679050405"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050405"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Maybe Integer
+forall a. a -&gt; Maybe a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">(Integer -&gt; Maybe Integer) -&gt; Integer -&gt; Maybe Integer
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050404"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Integer -&gt; Integer
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">*</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050405"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><span id="line-172"></span><span>
+</span><span id="line-173"></span><span class="hs-comment">-- em = do</span><span>
+</span><span id="line-174"></span><span class="hs-comment">--     a &lt;- Right 43</span><span>
+</span><span id="line-175"></span><span class="hs-comment">--     b &lt;- Right 'a'</span><span>
+</span><span id="line-176"></span><span class="hs-comment">--     return b</span><span>
+</span><span id="line-177"></span><span>
+</span><span id="line-178"></span><span class="hs-comment">-- | Same as 'em', but with explicit binds.</span><span>
+</span><span id="line-179"></span><span class="hs-comment">-- Monads let you sequence effects &#8212; even errors.</span><span>
+</span><span id="line-180"></span><span class="annot"><a href="Lessons.Lesson07.html#emb"><span class="hs-identifier hs-type">emb</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span>
+</span><span id="line-181"></span><span id="emb"><span class="annot"><span class="annottext">emb :: Either String Char
+</span><a href="Lessons.Lesson07.html#emb"><span class="hs-identifier hs-var hs-var">emb</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Either String Integer
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><span class="hs-number">43</span></span><span> </span><span class="annot"><span class="annottext">Either String Integer
+-&gt; (Integer -&gt; Either String Char) -&gt; Either String Char
+forall a b.
+Either String a -&gt; (a -&gt; Either String b) -&gt; Either String b
+forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679050407"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679050407"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Char -&gt; Either String Char
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><span class="hs-char">'a'</span></span><span> </span><span class="annot"><span class="annottext">Either String Char
+-&gt; (Char -&gt; Either String Char) -&gt; Either String Char
+forall a b.
+Either String a -&gt; (a -&gt; Either String b) -&gt; Either String b
+forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679050408"><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050408"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Char -&gt; Either String Char
+forall a. a -&gt; Either String a
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Char
+</span><a href="#local-6989586621679050408"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><span id="line-182"></span></pre></body></html>

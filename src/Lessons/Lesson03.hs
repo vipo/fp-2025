@@ -1,5 +1,6 @@
 {-# OPTIONS_GHC -Wno-missing-export-lists #-}
 {-# LANGUAGE InstanceSigs #-}
+-- | Notes taken by Ugnė Pacevičiūtė 
 module Lessons.Lesson03 where
 
 import Lessons.Lesson02 ( FEType(..) )

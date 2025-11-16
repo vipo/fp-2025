@@ -36,8 +36,10 @@ ghc-options:
 library:
   source-dirs: src
   dependencies:
+    - QuickCheck
     - random
     - stm
+    - strict
     - transformers
     - async
   when:

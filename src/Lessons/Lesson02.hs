@@ -1,6 +1,7 @@
--- | In this lesson we will discuss two main topics: recursion and
+-- | Notes taken by Ugnė Pacevičiūtė 
+--
+-- In this lesson we will discuss two main topics: recursion and
 -- Algebraic Data Types (ADT).
-
 module Lessons.Lesson02 (f,f',length', length'', t1, t2, trd, FireExtinguisher(..), FEType(..),
     capacity, refill) where
 
