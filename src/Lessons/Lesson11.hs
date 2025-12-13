@@ -2,7 +2,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE InstanceSigs #-}
 
-module Lessons.Lesson11 () where
+module Lessons.Lesson11 (Expr(..), eval) where
 
 import Control.Exception
 import Control.DeepSeq
