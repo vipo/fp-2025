@@ -11,3 +11,6 @@ stack exec -- haddock \
     src/Lessons/Lesson05.hs \
     src/Lessons/Lesson06.hs \
     src/Lessons/Lesson07.hs \
+    src/Lessons/Lesson08.hs \
+    src/Lessons/Lesson09.hs \
+    src/Lessons/Lesson11.hs

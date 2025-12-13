@@ -7,15 +7,27 @@ module Lessons.Lesson08 (fio, Parser(..), threeLetters) where
 import Data.Char
 import Control.Applicative
 
+-- | Monad is the most powerful class. 
+-- Bind method (>>=) gives the illusion of sequential computation.
+
+-- Functors ignore the order of execution.
+
+-- | Minimal implementation of a functor:
+-- fmap :: Functor f => (a -> b) -> f a -> f b
+-- It takes a pure function (which takes a and returns b), a functor of a, and returns a functor of b.
+
+
 -- >>> fl
 -- [5,4]
 fl :: [Int]
 fl = fmap length ["labas", "medi"]
+-- The function was applied to every element of the list.
 
 -- >>> fm
 -- Nothing
 fm :: Maybe Integer
 fm = fmap (+1) Nothing
+-- If the list is empty, the result is also an empty list.
 
 -- >>> fe
 -- Right 42
@@ -26,14 +38,31 @@ fe = fmap (+1) $ Right 41
 -- Left 41
 fe' :: Either Integer Integer
 fe' = fmap (+1) $ Left 41
+-- The left value is considered a "bad" value.
 
 fio :: IO String
 fio = fmap (\a -> a ++ "!") getLine
+-- Takes an input and returns the value with "!"" in the end.
+-- Returned type is IO String.
+
+-- IO is a type which presents computations which originate in the external world.
+
+-- Applicative functor is between functor and monad.
+
+-- | pure is pretty much the same as return:
+-- pure :: Applicative f => a -> f a
+-- return :: Monad m => a -> m a
 
 -- >>> p
 -- [5]
 p :: [Integer]
 p = pure 5
+
+-- | Signature <*>, sometimes called "spaceship".
+-- (<*>) :: Applicative f => (a -> b) -> f a -> f b
+-- It is similar to fmap, but instead of a Functor, it uses an Applicative.
+
+-- Signature <$> is synonymous with fmap.
 
 -- >>> am
 -- Just 46
@@ -72,6 +101,12 @@ ml = do
     b <- [1, 2]
     pure $ a + b
 
+-- | al' and ml are basically the same thing:
+-- In al, sources of values are completely independent, computed in parallel.
+-- In ml, they depend on values that are above, line-by-line.
+
+
+-- newtype is used if ADT has a single constructor.
 newtype Parser a = Parser {
     runParser :: String -> Either String (a, String)
 }
@@ -84,6 +119,7 @@ parseLetter = Parser $ \case
     (h:t) -> if isAlpha h
         then Right (h, t)
         else Left $ "A letter is expected, but got " ++ [h]
+-- If a number is parsed, then it returns Left value.
 
 instance Functor Parser where
   fmap :: (a -> b) -> Parser a -> Parser b
@@ -112,6 +148,7 @@ instance Applicative Parser where
 threeLetters :: Parser String
 threeLetters = (\a b c -> [a, b, c]) <$> parseLetter <*> parseLetter <*> parseLetter
 
+-- | Signature <|>, sometimes called 'alternative'
 -- >>> (Just 5) <|> (Just 6)
 -- Just 5
 -- >>> Nothing <|> (Just 6)
@@ -131,6 +168,7 @@ instance Alternative Parser where
             case runParser p2 input of
                 Right r2 -> Right r2
                 Left e2 -> Left $ e1 ++ "; " ++ e2 
+-- Can't be tested yet since we only have one parser!
 
 -- >>> runParser parseString "4123"
 -- Right ("","4123")
