@@ -15,21 +15,21 @@
 </span><span id="line-15"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Control.Monad.Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Free</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-16"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Control.Monad.Trans.State.Strict</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">State</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">get</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">put</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">runState</span></span><span class="hs-special">)</span><span>
 </span><span id="line-17"></span><span>
-</span><span id="line-18"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Lessons.Lesson11</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Expr</span></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">eval</span></span><span class="hs-special">)</span><span>
+</span><span id="line-18"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Lessons.Lesson11.html"><span class="hs-identifier">Lessons.Lesson11</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Lessons.Lesson11.html#Expr"><span class="hs-identifier">Expr</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Lessons.Lesson11.html#eval"><span class="hs-identifier">eval</span></a></span><span class="hs-special">)</span><span>
 </span><span id="line-19"></span><span>
 </span><span id="line-20"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Lessons.Lesson12.html"><span class="hs-identifier">Lessons.Lesson12</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Lessons.Lesson12.html#MyDomain"><span class="hs-identifier">MyDomain</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Lessons.Lesson12.html#MyDomainAlgebra"><span class="hs-identifier">MyDomainAlgebra</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Lessons.Lesson12.html#calculte"><span class="hs-identifier">calculte</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Lessons.Lesson12.html#restore"><span class="hs-identifier">restore</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Lessons.Lesson12.html#store"><span class="hs-identifier">store</span></a></span><span class="hs-special">)</span><span>
 </span><span id="line-21"></span><span>
-</span><span id="line-22"></span><span class="annot"><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-type">e</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Expr</span></span><span>
+</span><span id="line-22"></span><span class="annot"><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-type">e</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson11.html#Expr"><span class="hs-identifier hs-type">Expr</span></a></span><span>
 </span><span id="line-23"></span><span id="e"><span class="annot"><span class="annottext">e :: Expr
 </span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var hs-var">e</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Expr -&gt; Expr
-</span><span class="hs-identifier hs-var">Neg</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Expr -&gt; Expr -&gt; Expr
-</span><span class="hs-identifier hs-var">Add</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; Expr
-</span><span class="hs-identifier hs-var">Lit</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="Lessons.Lesson11.html#Neg"><span class="hs-identifier hs-var">Neg</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Expr -&gt; Expr -&gt; Expr
+</span><a href="Lessons.Lesson11.html#Add"><span class="hs-identifier hs-var">Add</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; Expr
+</span><a href="Lessons.Lesson11.html#Lit"><span class="hs-identifier hs-var">Lit</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
 </span><span class="hs-number">5</span></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Expr -&gt; Expr -&gt; Expr
-</span><span class="hs-identifier hs-var">Add</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; Expr
-</span><span class="hs-identifier hs-var">Lit</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="Lessons.Lesson11.html#Add"><span class="hs-identifier hs-var">Add</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; Expr
+</span><a href="Lessons.Lesson11.html#Lit"><span class="hs-identifier hs-var">Lit</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
 </span><span class="hs-number">4</span></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; Expr
-</span><span class="hs-identifier hs-var">Lit</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="Lessons.Lesson11.html#Lit"><span class="hs-identifier hs-var">Lit</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
 </span><span class="hs-number">6</span></span><span class="hs-special">)</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-24"></span><span>
 </span><span id="line-25"></span><span class="hs-comment">-- | Original program in do-notation.</span><span>
@@ -37,21 +37,21 @@
 </span><span id="line-27"></span><span class="annot"><a href="Lessons.Lesson13.html#myProgram"><span class="hs-identifier hs-type">myProgram</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Lessons.Lesson12.html#MyDomain"><span class="hs-identifier hs-type">MyDomain</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span>
 </span><span id="line-28"></span><span id="myProgram"><span class="annot"><span class="annottext">myProgram :: MyDomain Integer
 </span><a href="Lessons.Lesson13.html#myProgram"><span class="hs-identifier hs-var hs-var">myProgram</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-29"></span><span>  </span><span id="local-6989586621679060484"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060484"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Expr -&gt; MyDomain Integer
+</span><span id="line-29"></span><span>  </span><span id="local-6989586621679063602"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063602"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Expr -&gt; MyDomain Integer
 </span><a href="Lessons.Lesson12.html#calculte"><span class="hs-identifier hs-var">calculte</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
 </span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span>
-</span><span id="line-30"></span><span>  </span><span id="local-6989586621679060485"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060485"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">MyDomain Integer
+</span><span id="line-30"></span><span>  </span><span id="local-6989586621679063603"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063603"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">MyDomain Integer
 </span><a href="Lessons.Lesson12.html#restore"><span class="hs-identifier hs-var">restore</span></a></span><span>
 </span><span id="line-31"></span><span>  </span><span class="annot"><span class="annottext">Integer -&gt; MyDomain ()
 </span><a href="Lessons.Lesson12.html#store"><span class="hs-identifier hs-var">store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060484"><span class="hs-identifier hs-var">r</span></a></span><span>
+</span><a href="#local-6989586621679063602"><span class="hs-identifier hs-var">r</span></a></span><span>
 </span><span id="line-32"></span><span>  </span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span>  </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060485"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063603"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-33"></span><span>
 </span><span id="line-34"></span><span class="hs-comment">-- | Step 0: Desugar do-notation into explicit bind (&gt;&gt;=) operators.</span><span>
 </span><span id="line-35"></span><span class="hs-comment">-- Shows the structure hidden by do-notation syntax.</span><span>
@@ -65,8 +65,8 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060487"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060487"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063605"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063605"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-38"></span><span>  </span><span class="annot"><span class="annottext">MyDomain Integer
 </span><a href="Lessons.Lesson12.html#restore"><span class="hs-identifier hs-var">restore</span></a></span><span> </span><span class="annot"><span class="annottext">MyDomain Integer
 -&gt; (Integer -&gt; MyDomain Integer) -&gt; MyDomain Integer
@@ -74,11 +74,11 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060488"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060488"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063606"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063606"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-39"></span><span>    </span><span class="annot"><span class="annottext">Integer -&gt; MyDomain ()
 </span><a href="Lessons.Lesson12.html#store"><span class="hs-identifier hs-var">store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060487"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
+</span><a href="#local-6989586621679063605"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
@@ -89,7 +89,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060488"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063606"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-41"></span><span>      </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-42"></span><span>  </span><span class="hs-special">)</span><span>
 </span><span id="line-43"></span><span>
@@ -112,8 +112,8 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060493"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060493"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063611"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063611"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-48"></span><span>  </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
@@ -126,14 +126,14 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060495"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060495"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063613"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063613"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-49"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060493"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063611"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -146,7 +146,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060495"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063613"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-51"></span><span>      </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-52"></span><span>  </span><span class="hs-special">)</span><span>
 </span><span id="line-53"></span><span>
@@ -169,8 +169,8 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060498"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060498"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063616"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063616"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-60"></span><span>      </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
@@ -183,14 +183,14 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060499"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060499"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063617"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063617"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-61"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060498"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063616"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -203,7 +203,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060499"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063617"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-63"></span><span>          </span><span class="hs-special">)</span><span>
 </span><span id="line-64"></span><span>        </span><span class="hs-special">)</span><span>
 </span><span id="line-65"></span><span>      </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
@@ -229,16 +229,16 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060501"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060501"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063619"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063619"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-74"></span><span>    </span><span class="hs-special">(</span><span class="annot"><span class="annottext">MyDomain Integer
 -&gt; (Integer -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060502"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060502"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063620"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063620"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-75"></span><span>      </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
@@ -251,14 +251,14 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060503"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060503"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063621"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063621"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-76"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060502"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063620"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -271,13 +271,13 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060503"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063621"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-78"></span><span>          </span><span class="hs-special">)</span><span>
 </span><span id="line-79"></span><span>        </span><span class="hs-special">)</span><span>
 </span><span id="line-80"></span><span>      </span><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060501"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span>
+</span><a href="#local-6989586621679063619"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span>
 </span><span id="line-81"></span><span>    </span><span class="hs-special">)</span><span>
 </span><span id="line-82"></span><span>  </span><span class="hs-special">)</span><span>
 </span><span id="line-83"></span><span>
@@ -293,19 +293,19 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060505"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060505"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063623"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063623"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-89"></span><span>    </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060505"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain Integer
+</span><a href="#local-6989586621679063623"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain Integer
 -&gt; (Integer -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060506"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060506"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063624"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063624"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-90"></span><span>      </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
@@ -318,14 +318,14 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060507"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060507"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063625"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063625"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-91"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060506"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063624"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -338,7 +338,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060507"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063625"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-93"></span><span>          </span><span class="hs-special">)</span><span>
 </span><span id="line-94"></span><span>        </span><span class="hs-special">)</span><span>
 </span><span id="line-95"></span><span>      </span><span class="hs-special">)</span><span>
@@ -357,8 +357,8 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060509"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060509"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063627"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063627"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-104"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
@@ -371,14 +371,14 @@ forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060510"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060510"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063628"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063628"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-105"></span><span>      </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060509"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063627"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -391,7 +391,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060510"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063628"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-107"></span><span>        </span><span class="hs-special">)</span><span>
 </span><span id="line-108"></span><span>      </span><span class="hs-special">)</span><span>
 </span><span id="line-109"></span><span>    </span><span class="hs-special">)</span><span>
@@ -409,28 +409,28 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060512"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060512"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063630"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063630"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-117"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-118"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060513"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060513"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">MyDomain Integer
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063631"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063631"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">MyDomain Integer
 -&gt; (Integer -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060514"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060514"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063632"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063632"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-119"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060512"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063630"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -443,12 +443,12 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060514"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063632"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-121"></span><span>        </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-122"></span><span>      </span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060513"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a href="#local-6989586621679063631"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-123"></span><span>    </span><span class="hs-special">)</span><span>
 </span><span id="line-124"></span><span>  </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-125"></span><span>
@@ -465,31 +465,31 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060516"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060516"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063634"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063634"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-132"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-133"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060517"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060517"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063635"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063635"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060517"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">MyDomain Integer
+</span><a href="#local-6989586621679063635"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">MyDomain Integer
 -&gt; (Integer -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
 forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
-</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060518"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060518"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><span class="hs-operator hs-var">&gt;&gt;=</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063636"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063636"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-134"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060516"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063634"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -502,7 +502,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060518"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063636"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-136"></span><span>        </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-137"></span><span>      </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-138"></span><span>    </span><span class="hs-special">)</span><span>
@@ -520,21 +520,21 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060520"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060520"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063638"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063638"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-146"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-147"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060521"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060521"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063639"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063639"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-148"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain ()) -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060520"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063638"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
@@ -547,7 +547,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060521"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063639"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-150"></span><span>        </span><span class="hs-special">)</span><span>
 </span><span id="line-151"></span><span>      </span><span class="hs-special">)</span><span>
 </span><span id="line-152"></span><span>    </span><span class="hs-special">)</span><span>
@@ -565,15 +565,15 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060523"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060523"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063641"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063641"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-160"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-161"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060524"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060524"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063642"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063642"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-162"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(MyDomain () -&gt; MyDomain Integer)
@@ -592,11 +592,11 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060524"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063642"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-164"></span><span>        </span><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Integer -&gt; (() -&gt; MyDomain ()) -&gt; MyDomainAlgebra (MyDomain ())
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060523"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063641"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><span>
 </span><span id="line-165"></span><span>      </span><span class="hs-special">)</span><span>
@@ -615,15 +615,15 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060526"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060526"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063644"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063644"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-174"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-175"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060527"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060527"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063645"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063645"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-176"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
@@ -631,8 +631,8 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060526"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060528"><span class="annot"><span class="annottext">()
-</span><a href="#local-6989586621679060528"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
+</span><a href="#local-6989586621679063644"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063646"><span class="annot"><span class="annottext">()
+</span><a href="#local-6989586621679063646"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
@@ -643,11 +643,11 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060527"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063645"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-179"></span><span>          </span><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span> </span><span class="annot"><span class="annottext">()
-</span><a href="#local-6989586621679060528"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a href="#local-6989586621679063646"><span class="hs-identifier hs-var">a</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-180"></span><span>      </span><span class="hs-special">)</span><span>
 </span><span id="line-181"></span><span>    </span><span class="hs-special">)</span><span>
 </span><span id="line-182"></span><span>  </span><span class="hs-special">)</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
@@ -664,15 +664,15 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060530"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060530"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063648"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063648"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-189"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-190"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060531"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060531"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063649"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063649"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-191"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
@@ -680,11 +680,11 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060530"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060532"><span class="annot"><span class="annottext">()
-</span><a href="#local-6989586621679060532"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
+</span><a href="#local-6989586621679063648"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063650"><span class="annot"><span class="annottext">()
+</span><a href="#local-6989586621679063650"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">() -&gt; MyDomain ()
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span> </span><span class="annot"><span class="annottext">()
-</span><a href="#local-6989586621679060532"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
+</span><a href="#local-6989586621679063650"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">MyDomain () -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomain Integer
 forall a b.
 Free MyDomainAlgebra a
 -&gt; (a -&gt; Free MyDomainAlgebra b) -&gt; Free MyDomainAlgebra b
@@ -695,7 +695,7 @@ forall (m :: * -&gt; *) a b. Monad m =&gt; m a -&gt; (a -&gt; m b) -&gt; m b
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060531"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063649"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-194"></span><span>          </span><span class="hs-special">)</span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-195"></span><span>      </span><span class="hs-special">)</span><span>
 </span><span id="line-196"></span><span>    </span><span class="hs-special">)</span><span>
@@ -714,15 +714,15 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060534"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060534"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063652"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063652"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-205"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-206"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060535"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060535"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063653"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063653"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-207"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
@@ -730,16 +730,16 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060534"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060536"><span class="annot"><span class="annottext">()
-</span><a href="#local-6989586621679060536"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="hs-special">(</span><span class="hs-glyph">\</span><span class="annot"><span class="annottext">()
+</span><a href="#local-6989586621679063652"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063654"><span class="annot"><span class="annottext">()
+</span><a href="#local-6989586621679063654"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="hs-special">(</span><span class="hs-glyph">\</span><span class="annot"><span class="annottext">()
 </span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-209"></span><span>            </span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060535"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063653"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-210"></span><span>          </span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">()
-</span><a href="#local-6989586621679060536"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a href="#local-6989586621679063654"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-211"></span><span>      </span><span class="hs-special">)</span><span>
 </span><span id="line-212"></span><span>    </span><span class="hs-special">)</span><span>
 </span><span id="line-213"></span><span>  </span><span class="hs-special">)</span><span class="hs-special">)</span><span>
@@ -757,15 +757,15 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060538"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060538"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063656"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063656"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-221"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-222"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060539"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060539"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063657"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063657"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-223"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
@@ -773,13 +773,13 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060538"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span class="annot"><span class="annottext">()
+</span><a href="#local-6989586621679063656"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span class="annot"><span class="annottext">()
 </span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-225"></span><span>            </span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall a. a -&gt; Free MyDomainAlgebra a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060539"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063657"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-226"></span><span>          </span><span class="hs-special">)</span><span>
 </span><span id="line-227"></span><span>      </span><span class="hs-special">)</span><span>
 </span><span id="line-228"></span><span>    </span><span class="hs-special">)</span><span>
@@ -800,15 +800,15 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Expr -&gt; (Integer -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Calculate"><span class="hs-identifier hs-var">Calculate</span></a></span><span> </span><span class="annot"><span class="annottext">Expr
-</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060541"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060541"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson13.html#e"><span class="hs-identifier hs-var">e</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063659"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063659"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-239"></span><span>    </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
 </span><span id="line-240"></span><span>      </span><span class="annot"><span class="annottext">(Integer -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. (Integer -&gt; next) -&gt; MyDomainAlgebra next
-</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679060542"><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060542"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
+</span><a href="Lessons.Lesson12.html#Restore"><span class="hs-identifier hs-var">Restore</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679063660"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679063660"><span class="hs-identifier hs-var">v</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-241"></span><span>        </span><span class="annot"><span class="annottext">MyDomainAlgebra (MyDomain Integer) -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 </span><span class="hs-identifier hs-var">Free</span></span><span> </span><span class="hs-special">(</span><span>
@@ -816,12 +816,12 @@ forall (f :: * -&gt; *) a. f (Free f a) -&gt; Free f a
 -&gt; (() -&gt; MyDomain Integer) -&gt; MyDomainAlgebra (MyDomain Integer)
 forall next. Integer -&gt; (() -&gt; next) -&gt; MyDomainAlgebra next
 </span><a href="Lessons.Lesson12.html#Store"><span class="hs-identifier hs-var">Store</span></a></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060541"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span class="annot"><span class="annottext">()
+</span><a href="#local-6989586621679063659"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span class="annot"><span class="annottext">()
 </span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span>
 </span><span id="line-243"></span><span>            </span><span class="annot"><span class="annottext">Integer -&gt; MyDomain Integer
 forall (f :: * -&gt; *) a. a -&gt; Free f a
 </span><span class="hs-identifier hs-var">Pure</span></span><span> </span><span class="annot"><span class="annottext">Integer
-</span><a href="#local-6989586621679060542"><span class="hs-identifier hs-var">v</span></a></span><span>
+</span><a href="#local-6989586621679063660"><span class="hs-identifier hs-var">v</span></a></span><span>
 </span><span id="line-244"></span><span>          </span><span class="hs-special">)</span><span>
 </span><span id="line-245"></span><span>      </span><span class="hs-special">)</span><span>
 </span><span id="line-246"></span><span>    </span><span class="hs-special">)</span><span>
