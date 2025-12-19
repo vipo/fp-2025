@@ -1,5 +1,6 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
+-- | Notes taken by Julija Mikeliūnaitė
 module Lessons.Lesson09 where
 
 import Lessons.Lesson08(Parser(..), threeLetters)
@@ -14,68 +15,102 @@ import Control.Monad.IO.Class(liftIO)
 import Control.Monad
 import Data.Foldable
 
+-- | Take a list as a traversable, pass a list of Maybies. Returns a Maybe containing a list.
+--
 -- >>> sequenceA [Just 42, Just 5]
 -- Just [42,5]
 
+-- | If the passed list contains a Nothing, Nothing is returned.
+--
 -- >>> sequenceA [Just 42, Just 5, Nothing]
 -- Nothing
 
+-- | Works pretty much as list comprehension.
+--
 -- >>> sequenceA [[42], [13, 45]]
 -- [[42,13],[42,45]]
 
+-- | Returns empty list.
+--
 -- >>> sequenceA [[42], [13, 45], []]
 -- []
 
 -- >>> sequenceA [Right 43, Right 45]
 -- Right [43,45]
 
+-- | Because a Left value was passed, it also returns a Left value.
+--
 -- >>> sequenceA [Left 0, Right 43, Right 45]
 -- Left 0
 
 -- >>> sequenceA $ Right (Right 45)
 -- Right (Right 45)
 
--- >>> sequenceA $ Right (Right 45)
--- Right (Right 45)-- Left 45
+-- | Returns the inner value (Left 45).
+--
+-- >>> sequenceA $ Right (Left 45)
+-- Left 45
 
+-- | Swaps the traversable with applicative.
+--
 -- >>> sequenceA $ Just (Right 45)
 -- Right (Just 45)
 
+-- | Collects all the inputs. Inner values are Just monadic values, type is IO [String]. Result is an IO list of pure values, which makes life easier.
+--
 -- >>> :t sequenceA [getLine, getLine, getLine]
 -- sequenceA [getLine, getLine, getLine] :: IO [String]
 
 -- >>> :t [getLine, getLine, getLine]
 -- [getLine, getLine, getLine] :: [IO String]
 
+-- | Takes pure value (name) and returns a monadic value.
+--
 queryAge :: String -> IO Integer
 queryAge name = do
     putStrLn $ "What is your age, " ++ name ++ "?"
     read <$> getLine
 
+-- | If a list of names is provided, it returns a list of numbers (type IO [Integer]).
+--
 -- >>> :t mapM queryAge ["VI", "A", "U"]
 -- mapM queryAge ["VI", "A", "U"] :: IO [Integer]
 
+-- | Return type is [IO Integer] (not IO [Integer]).
+--
 -- >>> :t map queryAge ["VI", "A", "U"]
 -- map queryAge ["VI", "A", "U"] :: [IO Integer]
 
+-- | Usually functions with _'s drop the final result and only run side-effects.  Running a bunch of computations when you don't really care about the result.
+--
 -- >>> :t mapM_ queryAge ["VI", "A", "U"]
 -- mapM_ queryAge ["VI", "A", "U"] :: IO ()
 
+-- | Closest thing Haskell has to loop (similar to 'foreach' in other languages). Usually used for running a computation over some collection. Works the same way as mapM_ but has swapped arguments.
+--
 -- >>> :t forM_ ["VI", "A", "U"] queryAge
 -- forM_ ["VI", "A", "U"] queryAge :: IO ()
 
+-- | The number next to M shows how many arguments the first function takes. Works as (<$>).
+--
 -- >>> liftM2 (+) (Just 4) (Just 6)
 -- Just 10
 
 -- >>>  (+) <$> (Just 4) <*> (Just 6)
 -- Just 10
 
+-- | Lifts a pure function into a monadic function.
+--
 -- >>> liftM3 (\a b c -> a + b - c) (Just 4) (Just 6) Nothing
 -- Nothing
 
+-- | Same result as before.
+--
 -- >>> liftA3 (\a b c -> a + b - c) (Just 4) (Just 6) Nothing
 -- Nothing
 
+-- | Using our helpers in the context of parsers (making them useful).
+--
 -- >>> :t threeLetters
 -- threeLetters :: Parser String
 
@@ -85,9 +120,15 @@ queryAge name = do
 -- >>> :t runParser (sequenceA [threeLetters, threeLetters, threeLetters])
 -- runParser (sequenceA [threeLetters, threeLetters, threeLetters]) :: String -> Either String ([String], String)
 
+-- | After the first parser completes its course, the second parser continues with the unparsed string.
+--
 -- >>> runParser (sequenceA [threeLetters, threeLetters, threeLetters]) "asdasdasd!"
 -- Right (["asd","asd","asd"],"!")
 
+-- | Pretty much every program is just a traversable.
+
+-- | Allows to write parser combinators in a monadic way.
+--
 instance Monad Parser where
     (>>=) :: Parser a -> (a -> Parser b) -> Parser b
     ma >>= mf = Parser $ \input ->
@@ -107,6 +148,9 @@ threeThreeLetterWords = do
     c <- threeLetters
     pure [a, b, c]
 
+-- | State monad - it tries to pretend that Haskell is a normal programming language with a mutable state.
+-- | State has two params: String - type of state, and Int - type of computation result. get - gets global state, put - changes global state. In this case, global is super local.
+--
 -- >>> runState stateful "initial"
 -- (7,"I am a new state")
 stateful :: State String Int
@@ -115,6 +159,8 @@ stateful = do
     put "I am a new state"
     pure $ length value
 
+-- | 7 is the old state length, 16 is the new one.
+--
 -- >>> runState combined "initial"
 -- ((7,16),"I am a new state")
 combined :: State String (Int, Int)
